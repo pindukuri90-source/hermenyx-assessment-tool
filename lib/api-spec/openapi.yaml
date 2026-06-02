@@ -1,22 +1,24 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Executive Assessment API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: assessments
+    description: Assessment operations
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +26,220 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /assessments:
+    post:
+      operationId: createAssessment
+      tags: [assessments]
+      summary: Start a new assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssessmentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+
+  /assessments/{id}:
+    get:
+      operationId: getAssessment
+      tags: [assessments]
+      summary: Get assessment by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssessmentDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateAssessment
+      tags: [assessments]
+      summary: Update assessment contact info
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssessmentUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+
+  /assessments/{id}/sections/{sectionNum}:
+    put:
+      operationId: saveSectionResponse
+      tags: [assessments]
+      summary: Save responses for a section
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: sectionNum
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SectionResponseInput"
+      responses:
+        "200":
+          description: Saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SectionResponse"
+
+  /assessments/{id}/submit:
+    post:
+      operationId: submitAssessment
+      tags: [assessments]
+      summary: Submit completed assessment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+
+  /assessments/{id}/checkout:
+    post:
+      operationId: createCheckout
+      tags: [assessments]
+      summary: Create payment checkout session
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Checkout session created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckoutSession"
+
+  /admin/assessments:
+    get:
+      operationId: listAdminAssessments
+      tags: [admin]
+      summary: List all assessments (admin)
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AssessmentSummary"
+
+  /admin/assessments/{id}:
+    get:
+      operationId: getAdminAssessment
+      tags: [admin]
+      summary: Get full assessment detail (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssessmentDetail"
+
+  /admin/assessments/{id}/results:
+    post:
+      operationId: sendResults
+      tags: [admin]
+      summary: Approve and send results to user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResultsInput"
+      responses:
+        "200":
+          description: Results sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assessment"
+
+  /admin/stats:
+    get:
+      operationId: getAdminStats
+      tags: [admin]
+      summary: Get summary stats for admin dashboard
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +250,186 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    AssessmentInput:
+      type: object
+      required: [firstName, lastName, email, company, jobTitle]
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        jobTitle:
+          type: string
+        industry:
+          type: string
+
+    AssessmentUpdate:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        jobTitle:
+          type: string
+        industry:
+          type: string
+
+    Assessment:
+      type: object
+      required: [id, firstName, lastName, email, company, jobTitle, status, createdAt]
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        jobTitle:
+          type: string
+        industry:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [draft, submitted, paid, approved, completed]
+        createdAt:
+          type: string
+        updatedAt:
+          type: ["string", "null"]
+
+    SectionResponseInput:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+
+    SectionResponse:
+      type: object
+      required: [id, assessmentId, sectionNum, data]
+      properties:
+        id:
+          type: integer
+        assessmentId:
+          type: integer
+        sectionNum:
+          type: integer
+        data:
+          type: object
+          additionalProperties: true
+
+    AssessmentDetail:
+      type: object
+      required: [id, firstName, lastName, email, company, jobTitle, status, sections, createdAt]
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        jobTitle:
+          type: string
+        industry:
+          type: ["string", "null"]
+        status:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/SectionResponse"
+        results:
+          type: ["string", "null"]
+        roadmap:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: ["string", "null"]
+
+    AssessmentSummary:
+      type: object
+      required: [id, firstName, lastName, email, company, jobTitle, status, createdAt]
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        jobTitle:
+          type: string
+        industry:
+          type: ["string", "null"]
+        status:
+          type: string
+        sectionsCompleted:
+          type: integer
+        createdAt:
+          type: string
+
+    CheckoutSession:
+      type: object
+      required: [checkoutUrl, sessionId]
+      properties:
+        checkoutUrl:
+          type: string
+        sessionId:
+          type: string
+
+    ResultsInput:
+      type: object
+      required: [results, roadmap]
+      properties:
+        results:
+          type: string
+          description: Markdown or rich text executive summary/findings
+        roadmap:
+          type: string
+          description: 30-60-90 day roadmap text
+
+    AdminStats:
+      type: object
+      required: [total, draft, submitted, paid, approved, completed]
+      properties:
+        total:
+          type: integer
+        draft:
+          type: integer
+        submitted:
+          type: integer
+        paid:
+          type: integer
+        approved:
+          type: integer
+        completed:
+          type: integer

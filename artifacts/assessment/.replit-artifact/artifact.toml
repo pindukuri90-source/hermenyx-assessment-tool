@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Executive Assessment"
+version = "1.0.0"
+id = "artifacts/assessment"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23615
+
+[services.development]
+run = "pnpm --filter @workspace/assessment run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/assessment", "run", "build" ]
+publicDir = "artifacts/assessment/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23615"
+BASE_PATH = "/"
