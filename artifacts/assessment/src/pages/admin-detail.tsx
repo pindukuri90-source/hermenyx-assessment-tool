@@ -31,7 +31,7 @@ export default function AdminDetail() {
   }, [setLocation]);
 
   const { data: assessment, isLoading } = useGetAdminAssessment(id, {
-    query: { enabled: !!id && isAuthenticated }
+    query: { enabled: !!id && isAuthenticated, queryKey: getGetAdminAssessmentQueryKey(id) }
   });
 
   const sendResults = useSendResults();

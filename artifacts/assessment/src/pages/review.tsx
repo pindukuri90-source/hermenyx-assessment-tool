@@ -1,5 +1,5 @@
 import { useParams, useLocation } from "wouter";
-import { useGetAssessment, useSubmitAssessment } from "@workspace/api-client-react";
+import { useGetAssessment, useSubmitAssessment, getGetAssessmentQueryKey } from "@workspace/api-client-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ASSESSMENT_SECTIONS } from "@/config/sections";
@@ -11,7 +11,7 @@ export default function Review() {
   const id = parseInt(params.id || "0", 10);
 
   const { data: assessment, isLoading } = useGetAssessment(id, {
-    query: { enabled: !!id }
+    query: { enabled: !!id, queryKey: getGetAssessmentQueryKey(id) },
   });
 
   const submitAssessment = useSubmitAssessment();

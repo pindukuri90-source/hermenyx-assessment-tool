@@ -3,6 +3,8 @@ import { Link, useLocation } from "wouter";
 import { 
   useGetAdminStats, 
   useListAdminAssessments,
+  getGetAdminStatsQueryKey,
+  getListAdminAssessmentsQueryKey,
   AssessmentSummary
 } from "@workspace/api-client-react";
 import { 
@@ -45,11 +47,11 @@ export default function AdminDashboard() {
   };
 
   const { data: stats, isLoading: statsLoading } = useGetAdminStats({
-    query: { enabled: isAuthenticated }
+    query: { enabled: isAuthenticated, queryKey: getGetAdminStatsQueryKey() }
   });
 
   const { data: assessments, isLoading: listLoading } = useListAdminAssessments(undefined, {
-    query: { enabled: isAuthenticated }
+    query: { enabled: isAuthenticated, queryKey: getListAdminAssessmentsQueryKey() }
   });
 
   if (!isAuthenticated) {
