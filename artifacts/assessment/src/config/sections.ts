@@ -55,7 +55,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Mergers, acquisitions, or integration",
           "Sustainability and ESG goals",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "additionalPriorities",
@@ -69,7 +69,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         description: "1 = No confidence at all   |   5 = Fully confident",
         type: "scale",
         options: ["1", "2", "3", "4", "5"],
-        required: true,
+        required: false,
       },
       {
         name: "painfulDepartments",
@@ -93,7 +93,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         description: "Describe the business outcomes you expect.",
         type: "textarea",
         placeholder: "e.g., We would close the books in 2 days instead of 10, and identify margin leaks in real time...",
-        required: true,
+        required: false,
       },
     ],
   },
@@ -107,7 +107,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "Approximately how many reports or dashboards does your organization maintain today?",
         type: "radio",
         options: ["Fewer than 10", "10–30", "31–75", "76–150", "More than 150", "Unknown"],
-        required: true,
+        required: false,
       },
       {
         name: "reportBuilders",
@@ -138,7 +138,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Reports exist but are not actionable",
           "Too many tools with no integration",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "adHocResponseTime",
@@ -150,7 +150,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "1 week or more",
           "We often cannot answer it at all",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "reportingInventory",
@@ -179,7 +179,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         description: "1 = We frequently question the numbers   |   5 = Full trust, decisions are made confidently",
         type: "scale",
         options: ["1", "2", "3", "4", "5"],
-        required: true,
+        required: false,
       },
       {
         name: "dataQualityIssues",
@@ -195,7 +195,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Missing or incomplete data records",
           "Duplicate records across systems",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "governancePolicies",
@@ -207,7 +207,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "No — we rely on informal practices",
           "We are actively building governance now",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "dataOwnership",
@@ -224,7 +224,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "Describe the most significant business impact you have experienced as a result of poor data quality.",
         type: "textarea",
         placeholder: "e.g., Incorrect revenue forecasts led to a missed hiring plan. We discovered the error 6 weeks after the fact...",
-        required: true,
+        required: false,
       },
     ],
   },
@@ -244,7 +244,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "More than 50%",
           "We have not measured this",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "painfulManualProcesses",
@@ -261,7 +261,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Manual compliance or audit reporting",
           "Vendor or supplier data management",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "processInventory",
@@ -281,7 +281,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "If your team reclaimed 20–30% of their time from manual work, what would they focus on instead?",
         type: "textarea",
         placeholder: "e.g., Focus on customer analysis, build better forecasting models, pursue new growth initiatives...",
-        required: true,
+        required: false,
       },
     ],
   },
@@ -300,14 +300,14 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Frequently — leadership regularly relies on gut feel",
           "Almost always — we lack the data infrastructure to support decisions",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "decisionsCriticallyImpacted",
         label: "Which decisions are most negatively impacted by a lack of timely data or insights?",
         type: "textarea",
         placeholder: "e.g., Pricing decisions, headcount planning, inventory reordering, sales territory adjustments...",
-        required: true,
+        required: false,
       },
       {
         name: "realtimeKpiVisibility",
@@ -319,14 +319,14 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "No — KPIs are reported weekly or monthly at best",
           "We do not have formally defined KPIs",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "desiredKpis",
         label: "What are the top KPIs your leadership team wishes they had better visibility into?",
         type: "textarea",
         placeholder: "e.g., Customer acquisition cost by channel, gross margin by product line, operational throughput by shift...",
-        required: true,
+        required: false,
       },
       {
         name: "predictiveAnalytics",
@@ -361,7 +361,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Databricks",
           "Other cloud or hybrid environment",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "biTools",
@@ -384,7 +384,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "What CRM, ERP, or core business systems are currently in use?",
         type: "textarea",
         placeholder: "e.g., Salesforce CRM, SAP S/4HANA, NetSuite ERP, Workday HCM, HubSpot...",
-        required: true,
+        required: false,
       },
       {
         name: "integrationQuality",
@@ -396,7 +396,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Mostly manual — data is extracted and moved manually",
           "Not integrated — each system is completely siloed",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "systemsInventory",
@@ -433,7 +433,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Information Technology",
           "Executive Reporting and Board Dashboards",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "modernizationPriorities",
@@ -480,7 +480,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Implementing — AI is being deployed in select areas",
           "Scaled — AI is embedded across multiple business functions",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "automationOpportunities",
@@ -503,7 +503,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "What is your biggest concern or hesitation about AI adoption in your organization?",
         type: "textarea",
         placeholder: "e.g., Data privacy risks, lack of explainability, cost, regulatory compliance, staff resistance...",
-        required: true,
+        required: false,
       },
       {
         name: "aiOwnership",
@@ -542,14 +542,14 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "More than $2,000,000",
           "We have not calculated this",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "currentProblemCost",
         label: "Describe the cost or business impact of your current data and reporting problems.",
         type: "textarea",
         placeholder: "e.g., We spend approximately $300K/year on manual reporting labor. Finance closes the books 15 days late each quarter, delaying decisions...",
-        required: true,
+        required: false,
       },
       {
         name: "roiOpportunities",
@@ -574,7 +574,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "More than $500,000",
           "Budget is to be determined pending business case",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "decisionTimeline",
@@ -600,7 +600,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "In your view, what should be modernized first to generate quick wins within 30–60 days?",
         type: "textarea",
         placeholder: "e.g., Automate the weekly sales dashboard. Replace the manual finance close spreadsheet with a Power BI report connected to our ERP...",
-        required: true,
+        required: false,
       },
       {
         name: "prioritizationMatrix",
@@ -620,7 +620,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "What does success look like for your organization in 90 days?",
         type: "textarea",
         placeholder: "e.g., Executive team has a live dashboard, month-end close is automated, sales pipeline is visible in real time...",
-        required: true,
+        required: false,
       },
       {
         name: "changeReadiness",
@@ -641,14 +641,14 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         label: "What is your single biggest data or analytics challenge today?",
         type: "textarea",
         placeholder: "e.g., Our leadership team makes decisions based on reports that are 2 weeks old, built manually in Excel, and nobody agrees on the numbers...",
-        required: true,
+        required: false,
       },
       {
         name: "next30DaysGoal",
         label: "What would you like to accomplish in the next 30 days related to data and analytics?",
         type: "textarea",
         placeholder: "e.g., Get alignment on a single source of truth for revenue. Eliminate one major manual report...",
-        required: true,
+        required: false,
       },
       {
         name: "leadershipOutcomes",
@@ -665,7 +665,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
           "Competitive advantage through data",
           "Regulatory compliance and auditability",
         ],
-        required: true,
+        required: false,
       },
       {
         name: "additionalContext",
