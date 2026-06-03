@@ -72,7 +72,7 @@ export default function Section() {
       <nav className="w-full px-6 py-4 border-b border-border flex items-center justify-between bg-background">
         <div className="flex items-center gap-3">
           <img src="/images/hermenyx-icon.png" alt="hermenyx" className="w-6 h-6" />
-          <span className="font-semibold tracking-widest uppercase text-sm text-foreground">hermenyx</span>
+          <span className="font-semibold tracking-wide text-sm text-foreground">hermenyx</span>
         </div>
         <div className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
           {sectionConfig.title}
@@ -296,7 +296,7 @@ function FieldRenderer({
             {...f}
             value={typeof f.value === "string" ? f.value : ""}
             placeholder={field.placeholder}
-            className="min-h-[120px] resize-y text-sm bg-secondary border-border focus-visible:ring-primary text-foreground placeholder:text-muted-foreground/50"
+            className="min-h-[120px] resize-y text-base bg-secondary border-border focus-visible:ring-primary text-foreground placeholder:text-muted-foreground/70"
           />
         )}
       />
@@ -315,7 +315,7 @@ function FieldRenderer({
             value={typeof f.value === "string" || typeof f.value === "number" ? f.value : ""}
             type={field.type}
             placeholder={field.placeholder}
-            className="text-sm bg-secondary border-border focus-visible:ring-primary text-foreground placeholder:text-muted-foreground/50"
+            className="text-base bg-secondary border-border focus-visible:ring-primary text-foreground placeholder:text-muted-foreground/70"
           />
         )}
       />
