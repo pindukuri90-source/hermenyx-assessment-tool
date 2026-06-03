@@ -40,57 +40,59 @@ export default function Review() {
   const isFullyComplete = completedSections === totalSections;
 
   return (
-    <div className="min-h-screen bg-muted/30 py-12 px-4 sm:px-6">
-      <div className="max-w-3xl mx-auto space-y-8">
+    <div className="min-h-screen bg-background font-sans py-16 px-4 sm:px-6">
+      <div className="max-w-2xl mx-auto space-y-10">
         
         <div className="text-center space-y-4">
-          <h1 className="text-4xl font-serif font-semibold text-primary">Review Submission</h1>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground lowercase">review submission</h1>
           <p className="text-lg text-muted-foreground">
             You have completed {completedSections} of {totalSections} sections.
           </p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Completion Status</CardTitle>
+        <Card className="bg-card border-border shadow-lg">
+          <CardHeader className="border-b border-border pb-4">
+            <CardTitle className="text-xl text-foreground">Completion Status</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {ASSESSMENT_SECTIONS.map((section) => {
-              const isDone = assessment.sections?.some(s => s.sectionNum === section.id);
-              return (
-                <div key={section.id} className="flex items-center justify-between p-3 border rounded-md">
-                  <div className="flex items-center gap-3">
-                    {isDone ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-600" />
-                    ) : (
-                      <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30" />
+          <CardContent className="p-0">
+            <div className="divide-y divide-border">
+              {ASSESSMENT_SECTIONS.map((section) => {
+                const isDone = assessment.sections?.some(s => s.sectionNum === section.id);
+                return (
+                  <div key={section.id} className="flex items-center justify-between p-4 px-6 hover:bg-muted/10 transition-colors">
+                    <div className="flex items-center gap-4">
+                      {isDone ? (
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary shrink-0" />
+                      ) : (
+                        <div className="w-2.5 h-2.5 rounded-full border border-muted-foreground/40 shrink-0" />
+                      )}
+                      <span className={`font-medium text-sm tracking-wide ${!isDone ? 'text-muted-foreground' : 'text-foreground'}`}>
+                        Section {section.id}: {section.title}
+                      </span>
+                    </div>
+                    {!isDone && (
+                      <Button variant="ghost" size="sm" className="text-accent hover:text-accent/80 hover:bg-transparent" onClick={() => setLocation(`/assessment/${id}/section/${section.id}`)}>
+                        Complete <ArrowRight className="w-4 h-4 ml-1" />
+                      </Button>
                     )}
-                    <span className={`font-medium ${!isDone && 'text-muted-foreground'}`}>
-                      Section {section.id}: {section.title}
-                    </span>
                   </div>
-                  {!isDone && (
-                    <Button variant="ghost" size="sm" onClick={() => setLocation(`/assessment/${id}/section/${section.id}`)}>
-                      Complete <ArrowRight className="w-4 h-4 ml-1" />
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </CardContent>
         </Card>
 
         <div className="flex flex-col gap-4">
           <Button 
             size="lg" 
-            className="w-full h-14 text-lg" 
+            className="w-full h-14 text-lg font-medium tracking-wide bg-primary text-background hover:bg-primary/90" 
             disabled={!isFullyComplete || submitAssessment.isPending}
             onClick={handleSubmit}
           >
-            {submitAssessment.isPending ? "Submitting..." : "Submit Assessment"}
+            {submitAssessment.isPending ? "submitting..." : "submit assessment"}
           </Button>
           {!isFullyComplete && (
-            <p className="text-center text-sm text-destructive">
+            <p className="text-center text-sm text-destructive font-medium tracking-wide">
               Please complete all sections before submitting.
             </p>
           )}

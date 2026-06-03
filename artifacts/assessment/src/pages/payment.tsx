@@ -34,66 +34,65 @@ export default function Payment() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 py-16 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto space-y-8">
-        <div className="text-center space-y-3">
-          <div className="inline-block bg-primary/10 text-primary text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-2">
-            Assessment Complete
+    <div className="min-h-screen bg-background font-sans py-16 px-4 sm:px-6">
+      <div className="max-w-2xl mx-auto space-y-10">
+        <div className="text-center space-y-4">
+          <div className="inline-block border border-accent/20 bg-accent/10 text-accent text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-2">
+            assessment complete
           </div>
-          <h1 className="text-4xl font-serif font-semibold text-primary">
-            Unlock Your Executive Report
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground lowercase tracking-tight">
+            unlock your executive report
           </h1>
-          <p className="text-muted-foreground text-lg leading-relaxed">
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-xl mx-auto">
             Your responses have been captured. Our consulting team will now analyze your assessment
             and prepare a personalized executive summary and 30-60-90 day modernization roadmap.
           </p>
         </div>
 
-        <Card className="border-2 border-primary/20 shadow-lg">
-          <CardHeader className="border-b border-border bg-card/50">
-            <CardTitle className="text-xl">What You Will Receive</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6 space-y-4">
-            <div className="flex gap-4 items-start">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <div>
-                <div className="font-semibold">Personalized Executive Summary</div>
-                <div className="text-sm text-muted-foreground mt-0.5">
-                  A consultant-authored analysis of your current state, key gaps, and highest-value opportunities based on your specific responses.
+        <Card className="border-t-4 border-t-primary border-x border-b border-border shadow-lg bg-card">
+          <CardContent className="p-8 space-y-8">
+            <div className="space-y-6">
+              <div className="flex gap-4 items-start">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                <div>
+                  <div className="font-semibold text-foreground tracking-wide">Personalized Executive Summary</div>
+                  <div className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                    A consultant-authored analysis of your current state, key gaps, and highest-value opportunities based on your specific responses.
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <div>
-                <div className="font-semibold">30-60-90 Day Modernization Roadmap</div>
-                <div className="text-sm text-muted-foreground mt-0.5">
-                  A practical, phased action plan covering quick wins, medium-term priorities, and strategic long-term initiatives tailored to your organization.
+              <div className="flex gap-4 items-start">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                <div>
+                  <div className="font-semibold text-foreground tracking-wide">30-60-90 Day Modernization Roadmap</div>
+                  <div className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                    A practical, phased action plan covering quick wins, medium-term priorities, and strategic long-term initiatives tailored to your organization.
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex gap-4 items-start">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <div>
-                <div className="font-semibold">Prioritized Initiative Recommendations</div>
-                <div className="text-sm text-muted-foreground mt-0.5">
-                  Ranked modernization opportunities by effort, impact, and ROI — ready to present to your leadership team or board.
+              <div className="flex gap-4 items-start">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                <div>
+                  <div className="font-semibold text-foreground tracking-wide">Prioritized Initiative Recommendations</div>
+                  <div className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                    Ranked modernization opportunities by effort, impact, and ROI — ready to present to your leadership team or board.
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-border flex items-center justify-between">
+            <div className="pt-8 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div>
-                <div className="text-sm text-muted-foreground">One-time investment</div>
-                <div className="text-3xl font-bold text-primary mt-0.5">$497</div>
+                <div className="text-sm text-muted-foreground tracking-wide uppercase font-medium">One-time investment</div>
+                <div className="text-4xl font-bold text-primary mt-1">$497</div>
               </div>
               <Button
                 size="lg"
-                className="px-8 h-12 text-base"
+                className="w-full sm:w-auto px-8 h-14 text-base font-medium tracking-wide bg-primary text-background hover:bg-primary/90"
                 onClick={handlePay}
                 disabled={createCheckout.isPending}
               >
-                {createCheckout.isPending ? "Processing..." : "Pay and Unlock Report"}
+                {createCheckout.isPending ? "Processing..." : "pay and unlock report"}
               </Button>
             </div>
           </CardContent>

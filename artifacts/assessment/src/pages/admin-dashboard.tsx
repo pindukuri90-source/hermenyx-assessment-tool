@@ -54,22 +54,24 @@ export default function AdminDashboard() {
     query: { enabled: isAuthenticated, queryKey: getListAdminAssessmentsQueryKey() }
   });
 
-  if (!isAuthenticated) {
+    if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Admin Access</CardTitle>
+      <div className="min-h-screen bg-background font-sans flex items-center justify-center p-4">
+        <Card className="w-full max-w-sm bg-card border-border shadow-lg">
+          <CardHeader className="text-center pb-4 flex flex-col items-center">
+            <img src="/images/hermenyx-icon.png" alt="hermenyx icon" className="w-10 h-10 mb-4" />
+            <CardTitle className="text-2xl font-bold tracking-tight lowercase">admin portal</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="flex gap-4">
+            <form onSubmit={handleLogin} className="flex flex-col gap-4">
               <Input 
                 type="password" 
                 placeholder="Enter admin password" 
+                className="bg-secondary border-border focus-visible:ring-primary text-center"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button type="submit">Login</Button>
+              <Button type="submit" className="w-full bg-primary text-background font-medium tracking-wide">Login</Button>
             </form>
           </CardContent>
         </Card>
@@ -79,20 +81,24 @@ export default function AdminDashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800';
-      case 'paid': return 'bg-blue-100 text-blue-800';
-      case 'submitted': return 'bg-yellow-100 text-yellow-800';
-      case 'approved': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'completed': return 'bg-accent/20 text-accent border border-accent/30';
+      case 'paid': return 'bg-primary/20 text-primary border border-primary/30';
+      case 'submitted': return 'bg-accent/10 text-accent border border-accent/20';
+      case 'approved': return 'bg-primary/10 text-primary border border-primary/20';
+      default: return 'bg-muted text-muted-foreground border border-border';
     }
   };
 
   return (
-    <div className="min-h-screen bg-muted/30 p-8">
+    <div className="min-h-screen bg-background font-sans p-8">
       <div className="max-w-6xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-serif font-semibold text-primary">Admin Dashboard</h1>
-          <Button variant="outline" onClick={() => {
+        <div className="flex justify-between items-center border-b border-border pb-6">
+          <div className="flex items-center gap-4">
+            <img src="/images/hermenyx-logo-secondary.png" alt="hermenyx" className="h-6" />
+            <div className="h-6 w-px bg-border"></div>
+            <h1 className="text-xl font-semibold tracking-widest uppercase text-foreground">admin dashboard</h1>
+          </div>
+          <Button variant="outline" className="border-border text-foreground hover:bg-muted tracking-wide" onClick={() => {
             localStorage.removeItem("adminAuth");
             setIsAuthenticated(false);
           }}>
@@ -102,68 +108,68 @@ export default function AdminDashboard() {
 
         {stats && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <Card>
-              <CardHeader className="pb-2 text-sm text-muted-foreground">Total</CardHeader>
-              <CardContent className="text-2xl font-bold">{stats.total}</CardContent>
+            <Card className="bg-card border-border">
+              <CardHeader className="pb-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground">Total</CardHeader>
+              <CardContent className="text-3xl font-bold text-primary">{stats.total}</CardContent>
             </Card>
-            <Card>
-              <CardHeader className="pb-2 text-sm text-muted-foreground">Draft</CardHeader>
-              <CardContent className="text-2xl font-bold">{stats.draft}</CardContent>
+            <Card className="bg-card border-border">
+              <CardHeader className="pb-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground">Draft</CardHeader>
+              <CardContent className="text-3xl font-bold text-foreground">{stats.draft}</CardContent>
             </Card>
-            <Card>
-              <CardHeader className="pb-2 text-sm text-muted-foreground">Submitted</CardHeader>
-              <CardContent className="text-2xl font-bold">{stats.submitted}</CardContent>
+            <Card className="bg-card border-border">
+              <CardHeader className="pb-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground">Submitted</CardHeader>
+              <CardContent className="text-3xl font-bold text-accent">{stats.submitted}</CardContent>
             </Card>
-            <Card>
-              <CardHeader className="pb-2 text-sm text-muted-foreground">Paid</CardHeader>
-              <CardContent className="text-2xl font-bold">{stats.paid}</CardContent>
+            <Card className="bg-card border-border">
+              <CardHeader className="pb-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground">Paid</CardHeader>
+              <CardContent className="text-3xl font-bold text-primary">{stats.paid}</CardContent>
             </Card>
-            <Card>
-              <CardHeader className="pb-2 text-sm text-muted-foreground">Approved</CardHeader>
-              <CardContent className="text-2xl font-bold">{stats.approved}</CardContent>
+            <Card className="bg-card border-border">
+              <CardHeader className="pb-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground">Approved</CardHeader>
+              <CardContent className="text-3xl font-bold text-primary/80">{stats.approved}</CardContent>
             </Card>
-            <Card>
-              <CardHeader className="pb-2 text-sm text-muted-foreground">Completed</CardHeader>
-              <CardContent className="text-2xl font-bold">{stats.completed}</CardContent>
+            <Card className="bg-card border-border">
+              <CardHeader className="pb-2 text-xs font-semibold tracking-widest uppercase text-muted-foreground">Completed</CardHeader>
+              <CardContent className="text-3xl font-bold text-accent">{stats.completed}</CardContent>
             </Card>
           </div>
         )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Assessments</CardTitle>
+        <Card className="bg-card border-border">
+          <CardHeader className="border-b border-border pb-4">
+            <CardTitle className="text-lg text-foreground tracking-wide font-medium">Recent Assessments</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             {listLoading ? (
               <div className="text-center py-8 text-muted-foreground">Loading...</div>
             ) : (
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Executive</TableHead>
-                    <TableHead>Company</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="text-right">Action</TableHead>
+                <TableHeader className="bg-secondary/50">
+                  <TableRow className="border-border">
+                    <TableHead className="text-muted-foreground font-medium uppercase tracking-widest text-xs py-4">Executive</TableHead>
+                    <TableHead className="text-muted-foreground font-medium uppercase tracking-widest text-xs py-4">Company</TableHead>
+                    <TableHead className="text-muted-foreground font-medium uppercase tracking-widest text-xs py-4">Status</TableHead>
+                    <TableHead className="text-muted-foreground font-medium uppercase tracking-widest text-xs py-4">Date</TableHead>
+                    <TableHead className="text-right text-muted-foreground font-medium uppercase tracking-widest text-xs py-4">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {assessments?.map((assessment) => (
-                    <TableRow key={assessment.id}>
-                      <TableCell>
-                        <div className="font-medium">{assessment.firstName} {assessment.lastName}</div>
-                        <div className="text-sm text-muted-foreground">{assessment.email}</div>
+                    <TableRow key={assessment.id} className="border-border hover:bg-secondary/30">
+                      <TableCell className="py-4">
+                        <div className="font-medium text-foreground">{assessment.firstName} {assessment.lastName}</div>
+                        <div className="text-xs text-muted-foreground">{assessment.email}</div>
                       </TableCell>
-                      <TableCell>{assessment.company}</TableCell>
+                      <TableCell className="text-foreground">{assessment.company}</TableCell>
                       <TableCell>
-                        <Badge variant="secondary" className={getStatusColor(assessment.status)}>
+                        <Badge variant="outline" className={`uppercase tracking-wider text-[10px] px-2 py-0.5 ${getStatusColor(assessment.status)}`}>
                           {assessment.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>{new Date(assessment.createdAt).toLocaleDateString()}</TableCell>
+                      <TableCell className="text-muted-foreground text-sm">{new Date(assessment.createdAt).toLocaleDateString()}</TableCell>
                       <TableCell className="text-right">
                         <Link href={`/admin/assessment/${assessment.id}`}>
-                          <Button variant="outline" size="sm">View</Button>
+                          <Button variant="ghost" size="sm" className="text-primary hover:text-primary hover:bg-primary/10 tracking-wide">View</Button>
                         </Link>
                       </TableCell>
                     </TableRow>

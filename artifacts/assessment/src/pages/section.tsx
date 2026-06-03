@@ -67,71 +67,84 @@ export default function Section() {
   const isLast = sectionNum === TOTAL_SECTIONS;
 
   return (
-    <div className="min-h-screen bg-muted/30 py-10 px-4 sm:px-6">
-      <div className="max-w-3xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <span>Section {sectionNum} of {TOTAL_SECTIONS}</span>
-            <span>{progressPct}% complete</span>
-          </div>
-          <div className="w-full bg-border rounded-full h-1.5">
-            <div
-              className="bg-primary h-1.5 rounded-full transition-all duration-500"
-              style={{ width: `${progressPct}%` }}
-            />
-          </div>
-          <div className="pt-2">
-            <h1 className="text-3xl font-serif font-semibold text-primary">
+    <div className="min-h-screen bg-background font-sans flex flex-col">
+      {/* Top Nav */}
+      <nav className="w-full px-6 py-4 border-b border-border flex items-center justify-between bg-background">
+        <div className="flex items-center gap-3">
+          <img src="/images/hermenyx-icon.png" alt="hermenyx" className="w-6 h-6" />
+          <span className="font-semibold tracking-widest uppercase text-sm text-foreground">hermenyx</span>
+        </div>
+        <div className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
+          {sectionConfig.title}
+        </div>
+      </nav>
+
+      {/* Progress bar */}
+      <div className="w-full bg-border h-1">
+        <div
+          className="bg-primary h-1 transition-all duration-500"
+          style={{ width: `${progressPct}%` }}
+        />
+      </div>
+
+      <div className="flex-1 py-12 px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto space-y-10">
+          {/* Header */}
+          <div className="space-y-3">
+            <div className="text-sm font-medium text-accent tracking-widest uppercase">
+              Section {sectionNum} of {TOTAL_SECTIONS}
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight text-foreground lowercase">
               {sectionConfig.title}
             </h1>
-            <p className="mt-2 text-muted-foreground leading-relaxed">{sectionConfig.subtitle}</p>
+            <p className="mt-2 text-lg text-muted-foreground leading-relaxed">{sectionConfig.subtitle}</p>
           </div>
+
+          {/* Questions */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            {sectionConfig.fields.map((field) => (
+              <Card key={field.name} className="border-border bg-card shadow-sm border-l-4 border-l-primary rounded-r-lg rounded-l-none">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-semibold leading-snug text-foreground">
+                    {field.label}
+                    {field.required && <span className="text-primary ml-1">*</span>}
+                  </CardTitle>
+                  {field.description && (
+                    <CardDescription className="text-sm text-muted-foreground mt-1">{field.description}</CardDescription>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  <FieldRenderer field={field} control={control} watch={watch} setValue={setValue} />
+                </CardContent>
+              </Card>
+            ))}
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between pt-6 pb-12 border-t border-border">
+              <Button
+                type="button"
+                variant="outline"
+                className="px-8 h-12 text-foreground border-border hover:bg-muted hover:text-foreground tracking-wide font-medium"
+                onClick={() => {
+                  if (sectionNum > 1) {
+                    setLocation(`/assessment/${id}/section/${sectionNum - 1}`);
+                  } else {
+                    setLocation(`/start`);
+                  }
+                }}
+              >
+                Back
+              </Button>
+              <Button type="submit" className="px-10 h-12 bg-primary text-background hover:bg-primary/90 tracking-wide font-medium" disabled={saveSection.isPending}>
+                {saveSection.isPending
+                  ? "Saving..."
+                  : isLast
+                  ? "review submission"
+                  : "next section"}
+              </Button>
+            </div>
+          </form>
         </div>
-
-        {/* Questions */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {sectionConfig.fields.map((field) => (
-            <Card key={field.name} className="border-border shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base font-semibold leading-snug">
-                  {field.label}
-                  {field.required && <span className="text-destructive ml-1">*</span>}
-                </CardTitle>
-                {field.description && (
-                  <CardDescription className="text-sm">{field.description}</CardDescription>
-                )}
-              </CardHeader>
-              <CardContent>
-                <FieldRenderer field={field} control={control} watch={watch} setValue={setValue} />
-              </CardContent>
-            </Card>
-          ))}
-
-          {/* Navigation */}
-          <div className="flex items-center justify-between pt-4 pb-10">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                if (sectionNum > 1) {
-                  setLocation(`/assessment/${id}/section/${sectionNum - 1}`);
-                } else {
-                  setLocation(`/start`);
-                }
-              }}
-            >
-              Back
-            </Button>
-            <Button type="submit" className="px-8" disabled={saveSection.isPending}>
-              {saveSection.isPending
-                ? "Saving..."
-                : isLast
-                ? "Review Submission"
-                : "Next Section"}
-            </Button>
-          </div>
-        </form>
       </div>
     </div>
   );
@@ -166,8 +179,8 @@ function FieldRenderer({
                     className={cn(
                       "flex items-start gap-3 rounded-md border px-4 py-3 cursor-pointer transition-colors text-sm",
                       checked
-                        ? "border-primary bg-primary/5 text-primary font-medium"
-                        : "border-border hover:border-primary/40 hover:bg-muted/50"
+                        ? "border-primary bg-primary/10 text-foreground font-medium"
+                        : "border-border hover:border-primary/40 hover:bg-muted/50 text-foreground/80"
                     )}
                   >
                     <Checkbox
@@ -179,7 +192,10 @@ function FieldRenderer({
                           f.onChange(selected.filter((s) => s !== option));
                         }
                       }}
-                      className="mt-0.5 shrink-0"
+                      className={cn(
+                        "mt-0.5 shrink-0",
+                        checked ? "border-primary text-primary" : "border-muted-foreground"
+                      )}
                     />
                     <span>{option}</span>
                   </label>
@@ -208,13 +224,13 @@ function FieldRenderer({
                   className={cn(
                     "flex items-center gap-3 rounded-md border px-4 py-3 cursor-pointer transition-colors text-sm",
                     selected
-                      ? "border-primary bg-primary/5 text-primary font-medium"
-                      : "border-border hover:border-primary/40 hover:bg-muted/50"
+                      ? "border-primary bg-primary/10 text-foreground font-medium"
+                      : "border-border hover:border-primary/40 hover:bg-muted/50 text-foreground/80"
                   )}
                 >
                   <div
                     className={cn(
-                      "w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center",
+                      "w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center transition-colors",
                       selected ? "border-primary" : "border-muted-foreground/40"
                     )}
                   >
@@ -253,10 +269,10 @@ function FieldRenderer({
                   type="button"
                   onClick={() => f.onChange(val)}
                   className={cn(
-                    "flex-1 h-14 rounded-md border-2 text-lg font-semibold transition-all",
+                    "flex-1 h-14 rounded-none border-2 text-lg font-semibold transition-all",
                     selected
-                      ? "border-primary bg-primary text-primary-foreground shadow"
-                      : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
+                      ? "border-primary bg-primary text-background shadow-md"
+                      : "border-border bg-secondary hover:border-primary/50 text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {val}
@@ -280,7 +296,7 @@ function FieldRenderer({
             {...f}
             value={typeof f.value === "string" ? f.value : ""}
             placeholder={field.placeholder}
-            className="min-h-[120px] resize-y text-sm"
+            className="min-h-[120px] resize-y text-sm bg-secondary border-border focus-visible:ring-primary text-foreground placeholder:text-muted-foreground/50"
           />
         )}
       />
@@ -299,7 +315,7 @@ function FieldRenderer({
             value={typeof f.value === "string" || typeof f.value === "number" ? f.value : ""}
             type={field.type}
             placeholder={field.placeholder}
-            className="text-sm"
+            className="text-sm bg-secondary border-border focus-visible:ring-primary text-foreground placeholder:text-muted-foreground/50"
           />
         )}
       />
@@ -356,7 +372,7 @@ function FieldRenderer({
                             value={tableData[rowIdx]?.[col.key] ?? ""}
                             onChange={(e) => updateCell(rowIdx, col.key, e.target.value)}
                             placeholder={col.placeholder}
-                            className="h-8 text-xs"
+                            className="h-8 text-xs bg-secondary border-border focus-visible:ring-primary text-foreground"
                           />
                         </td>
                       ))}

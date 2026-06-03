@@ -74,64 +74,65 @@ export default function AdminDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 p-8">
-      <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex items-center gap-4 mb-8">
+    <div className="min-h-screen bg-background font-sans p-8">
+      <div className="max-w-7xl mx-auto space-y-6 flex flex-col">
+        <div className="flex items-center gap-4 mb-8 border-b border-border pb-6">
           <Link href="/admin">
-            <Button variant="ghost" size="sm">← Back to Dashboard</Button>
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">← Back</Button>
           </Link>
-          <h1 className="text-3xl font-serif font-semibold text-primary">Assessment Review</h1>
-          <Badge className="ml-auto" variant={assessment.status === 'paid' ? 'default' : 'secondary'}>
+          <div className="h-6 w-px bg-border"></div>
+          <h1 className="text-xl font-bold tracking-widest uppercase text-foreground">Assessment Review</h1>
+          <Badge className="ml-auto uppercase tracking-widest text-[10px] px-3 py-1" variant="outline" style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}>
             {assessment.status}
           </Badge>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-1 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Executive Profile</CardTitle>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-1 space-y-8">
+            <Card className="bg-card border-border">
+              <CardHeader className="border-b border-border pb-4">
+                <CardTitle className="text-sm font-semibold tracking-widest uppercase text-foreground">Executive Profile</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 pt-6">
                 <div>
-                  <div className="text-sm font-medium text-muted-foreground">Name</div>
-                  <div>{assessment.firstName} {assessment.lastName}</div>
+                  <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Name</div>
+                  <div className="text-foreground">{assessment.firstName} {assessment.lastName}</div>
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-muted-foreground">Email</div>
-                  <div>{assessment.email}</div>
+                  <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Email</div>
+                  <div className="text-foreground break-all">{assessment.email}</div>
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-muted-foreground">Company</div>
-                  <div>{assessment.company}</div>
+                  <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Company</div>
+                  <div className="text-foreground">{assessment.company}</div>
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-muted-foreground">Title</div>
-                  <div>{assessment.jobTitle}</div>
+                  <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Title</div>
+                  <div className="text-foreground">{assessment.jobTitle}</div>
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-muted-foreground">Industry</div>
-                  <div>{assessment.industry || "N/A"}</div>
+                  <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Industry</div>
+                  <div className="text-foreground">{assessment.industry || "N/A"}</div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Send Results</CardTitle>
-                <CardDescription>Provide the executive summary and 30-60-90 day roadmap.</CardDescription>
+            <Card className="bg-card border-primary/30 border-t-2 border-t-primary">
+              <CardHeader className="border-b border-border pb-4">
+                <CardTitle className="text-sm font-semibold tracking-widest uppercase text-foreground">Send Results</CardTitle>
+                <CardDescription className="text-xs text-muted-foreground mt-2">Provide the executive summary and 30-60-90 day roadmap.</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-6">
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
                       control={form.control}
                       name="results"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Executive Summary</FormLabel>
+                          <FormLabel className="text-foreground">Executive Summary</FormLabel>
                           <FormControl>
-                            <Textarea className="min-h-[150px]" placeholder="Key findings..." {...field} />
+                            <Textarea className="min-h-[150px] bg-secondary border-border focus-visible:ring-primary text-foreground text-sm" placeholder="Key findings..." {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -142,9 +143,9 @@ export default function AdminDetail() {
                       name="roadmap"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>30-60-90 Day Roadmap</FormLabel>
+                          <FormLabel className="text-foreground">30-60-90 Day Roadmap</FormLabel>
                           <FormControl>
-                            <Textarea className="min-h-[150px]" placeholder="Action plan..." {...field} />
+                            <Textarea className="min-h-[150px] bg-secondary border-border focus-visible:ring-primary text-foreground text-sm" placeholder="Action plan..." {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -152,7 +153,7 @@ export default function AdminDetail() {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full"
+                      className="w-full bg-primary text-background font-medium tracking-wide h-12"
                       disabled={sendResults.isPending || !['paid', 'submitted', 'approved'].includes(assessment.status)}
                     >
                       {sendResults.isPending ? "Sending..." : "Approve & Send"}
@@ -164,26 +165,29 @@ export default function AdminDetail() {
           </div>
 
           <div className="md:col-span-2 space-y-6">
-            <h2 className="text-2xl font-serif font-semibold">Section Responses</h2>
+            <h2 className="text-2xl font-bold lowercase tracking-tight text-foreground mb-6">section responses</h2>
             {ASSESSMENT_SECTIONS.map((sectionConfig) => {
               const response = assessment.sections?.find(s => s.sectionNum === sectionConfig.id);
               if (!response) return null;
 
               return (
-                <Card key={sectionConfig.id}>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Section {sectionConfig.id}: {sectionConfig.title}</CardTitle>
+                <Card key={sectionConfig.id} className="bg-card border-border overflow-hidden">
+                  <CardHeader className="bg-secondary/30 border-b border-border py-4 px-6 flex flex-row items-center gap-4 space-y-0">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold shrink-0">
+                      {sectionConfig.id}
+                    </div>
+                    <CardTitle className="text-base text-foreground font-medium">{sectionConfig.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="p-6 space-y-6">
                     {sectionConfig.fields.map(field => (
-                      <div key={field.name} className="border-b pb-4 last:border-0 last:pb-0">
-                        <div className="font-medium text-sm text-muted-foreground mb-1">{field.label}</div>
-                        <div className="text-sm">
+                      <div key={field.name} className="border-b border-border pb-6 last:border-0 last:pb-0">
+                        <div className="font-semibold text-sm text-muted-foreground mb-2">{field.label}</div>
+                        <div className="text-sm text-foreground bg-secondary/20 p-4 rounded-md border border-border/50">
                           {response.data?.[field.name] 
                             ? typeof response.data[field.name] === 'object'
-                              ? JSON.stringify(response.data[field.name], null, 2)
+                              ? <pre className="whitespace-pre-wrap font-sans">{JSON.stringify(response.data[field.name], null, 2)}</pre>
                               : String(response.data[field.name])
-                            : <span className="text-muted-foreground italic">No answer</span>
+                            : <span className="text-muted-foreground/60 italic">No answer provided</span>
                           }
                         </div>
                       </div>
@@ -193,9 +197,12 @@ export default function AdminDetail() {
               );
             })}
             {(!assessment.sections || assessment.sections.length === 0) && (
-              <Card>
-                <CardContent className="py-8 text-center text-muted-foreground">
-                  No responses recorded yet.
+              <Card className="bg-card border-border border-dashed">
+                <CardContent className="py-16 text-center text-muted-foreground flex flex-col items-center gap-2">
+                  <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-2">
+                    <span className="text-xl">📄</span>
+                  </div>
+                  <p>No responses recorded yet.</p>
                 </CardContent>
               </Card>
             )}

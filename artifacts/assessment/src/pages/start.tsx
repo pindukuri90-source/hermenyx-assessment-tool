@@ -58,16 +58,19 @@ export default function Start() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 py-12 px-4 sm:px-6">
-      <div className="max-w-xl mx-auto">
-        <Card className="shadow-lg border-border">
-          <CardHeader className="space-y-2 border-b border-border bg-card/50 pb-6">
-            <CardTitle className="text-2xl font-serif">Executive Details</CardTitle>
-            <CardDescription className="text-base">
-              Please provide your professional contact information to begin the assessment.
-            </CardDescription>
+    <div className="min-h-screen bg-background flex flex-col font-sans py-12 px-4 sm:px-6 items-center justify-center">
+      <div className="max-w-xl w-full">
+        <Card className="shadow-lg border-border bg-card">
+          <CardHeader className="space-y-4 border-b border-border pb-6 flex flex-col items-center text-center">
+            <img src="/images/hermenyx-icon.png" alt="hermenyx icon" className="w-12 h-12" />
+            <div className="space-y-2">
+              <CardTitle className="text-3xl font-bold lowercase tracking-tight">your executive profile</CardTitle>
+              <CardDescription className="text-base text-muted-foreground">
+                tell us about yourself to begin the assessment
+              </CardDescription>
+            </div>
           </CardHeader>
-          <CardContent className="pt-6">
+          <CardContent className="pt-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
@@ -76,9 +79,9 @@ export default function Start() {
                     name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>First Name</FormLabel>
+                        <FormLabel className="text-foreground">First Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Jane" {...field} />
+                          <Input className="bg-secondary border-border focus-visible:ring-primary text-foreground" placeholder="Jane" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -89,9 +92,9 @@ export default function Start() {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last Name</FormLabel>
+                        <FormLabel className="text-foreground">Last Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Doe" {...field} />
+                          <Input className="bg-secondary border-border focus-visible:ring-primary text-foreground" placeholder="Doe" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -104,9 +107,9 @@ export default function Start() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Work Email</FormLabel>
+                      <FormLabel className="text-foreground">Work Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="jane.doe@company.com" {...field} />
+                        <Input className="bg-secondary border-border focus-visible:ring-primary text-foreground" type="email" placeholder="jane.doe@company.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -118,9 +121,9 @@ export default function Start() {
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Name</FormLabel>
+                      <FormLabel className="text-foreground">Company Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Acme Corp" {...field} />
+                        <Input className="bg-secondary border-border focus-visible:ring-primary text-foreground" placeholder="Acme Corp" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -133,9 +136,9 @@ export default function Start() {
                     name="jobTitle"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Job Title</FormLabel>
+                        <FormLabel className="text-foreground">Job Title</FormLabel>
                         <FormControl>
-                          <Input placeholder="Chief Data Officer" {...field} />
+                          <Input className="bg-secondary border-border focus-visible:ring-primary text-foreground" placeholder="Chief Data Officer" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -146,9 +149,9 @@ export default function Start() {
                     name="industry"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Industry</FormLabel>
+                        <FormLabel className="text-foreground">Industry</FormLabel>
                         <FormControl>
-                          <Input placeholder="Financial Services" {...field} />
+                          <Input className="bg-secondary border-border focus-visible:ring-primary text-foreground" placeholder="Financial Services" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -158,10 +161,10 @@ export default function Start() {
 
                 <Button 
                   type="submit" 
-                  className="w-full h-12 text-lg" 
+                  className="w-full h-14 text-lg font-medium tracking-wide bg-primary text-background hover:bg-primary/90 mt-4" 
                   disabled={createAssessment.isPending}
                 >
-                  {createAssessment.isPending ? "Initializing..." : "Start Assessment"}
+                  {createAssessment.isPending ? "Initializing..." : "begin assessment"}
                 </Button>
               </form>
             </Form>
