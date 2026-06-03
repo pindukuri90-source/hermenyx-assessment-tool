@@ -13,6 +13,15 @@ export interface ErrorResponse {
   error: string;
 }
 
+export type AssessmentInputCompanySize = typeof AssessmentInputCompanySize[keyof typeof AssessmentInputCompanySize];
+
+
+export const AssessmentInputCompanySize = {
+  small: 'small',
+  medium: 'medium',
+  enterprise: 'enterprise',
+} as const;
+
 export interface AssessmentInput {
   firstName: string;
   lastName: string;
@@ -20,7 +29,17 @@ export interface AssessmentInput {
   company: string;
   jobTitle: string;
   industry?: string;
+  companySize?: AssessmentInputCompanySize;
 }
+
+export type AssessmentUpdateCompanySize = typeof AssessmentUpdateCompanySize[keyof typeof AssessmentUpdateCompanySize];
+
+
+export const AssessmentUpdateCompanySize = {
+  small: 'small',
+  medium: 'medium',
+  enterprise: 'enterprise',
+} as const;
 
 export interface AssessmentUpdate {
   firstName?: string;
@@ -29,6 +48,7 @@ export interface AssessmentUpdate {
   company?: string;
   jobTitle?: string;
   industry?: string;
+  companySize?: AssessmentUpdateCompanySize;
 }
 
 export type AssessmentStatus = typeof AssessmentStatus[keyof typeof AssessmentStatus];
@@ -51,6 +71,8 @@ export interface Assessment {
   jobTitle: string;
   /** @nullable */
   industry?: string | null;
+  /** @nullable */
+  companySize?: string | null;
   status: AssessmentStatus;
   createdAt: string;
   /** @nullable */
@@ -81,6 +103,8 @@ export interface AssessmentDetail {
   jobTitle: string;
   /** @nullable */
   industry?: string | null;
+  /** @nullable */
+  companySize?: string | null;
   status: string;
   sections: SectionResponse[];
   /** @nullable */
@@ -101,6 +125,8 @@ export interface AssessmentSummary {
   jobTitle: string;
   /** @nullable */
   industry?: string | null;
+  /** @nullable */
+  companySize?: string | null;
   status: string;
   sectionsCompleted?: number;
   createdAt: string;

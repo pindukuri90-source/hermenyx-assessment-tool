@@ -15,6 +15,8 @@ export interface AssessmentSummary {
   jobTitle: string;
   /** @nullable */
   industry?: string | null;
+  /** @nullable */
+  companySize?: string | null;
   status: string;
   sectionsCompleted?: number;
   createdAt: string;

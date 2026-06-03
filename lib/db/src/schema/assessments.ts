@@ -10,6 +10,7 @@ export const assessmentsTable = pgTable("assessments", {
   company: text("company").notNull(),
   jobTitle: text("job_title").notNull(),
   industry: text("industry"),
+  companySize: text("company_size"),
   status: text("status").notNull().default("draft"),
   results: text("results"),
   roadmap: text("roadmap"),

@@ -32,7 +32,673 @@ export interface SectionConfig {
   fields: SectionField[];
 }
 
-export const ASSESSMENT_SECTIONS: SectionConfig[] = [
+export type CompanySize = "small" | "medium" | "enterprise";
+
+// ─── SMALL (under 100 employees) ──────────────────────────────────────────────
+// 6 sections — concise, high-signal questions tailored to smaller teams
+
+export const SMALL_SECTIONS: SectionConfig[] = [
+  {
+    id: 1,
+    title: "Executive Priorities",
+    subtitle: "Help us understand your business goals and where data is holding you back.",
+    fields: [
+      {
+        name: "topPriorities",
+        label: "What are your top strategic priorities this year?",
+        description: "Select all that apply.",
+        type: "multiselect",
+        options: [
+          "Revenue growth and new customer acquisition",
+          "Operational efficiency and cost reduction",
+          "Customer experience improvement",
+          "Digital transformation",
+          "Regulatory compliance",
+          "Product or service innovation",
+        ],
+        required: false,
+      },
+      {
+        name: "dataConfidence",
+        label: "How confident are you that your team has the data visibility needed to execute on these priorities?",
+        description: "1 = No confidence at all   |   5 = Fully confident",
+        type: "scale",
+        options: ["1", "2", "3", "4", "5"],
+        required: false,
+      },
+      {
+        name: "dataVisionStatement",
+        label: "What would better data visibility mean for your business?",
+        description: "Describe the outcomes you expect.",
+        type: "textarea",
+        placeholder: "e.g., We would close the books in 2 days instead of 10 and know which products are actually profitable...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "Current Reporting Pain Points",
+    subtitle: "Let's understand where your reporting is letting your team down.",
+    fields: [
+      {
+        name: "reportingChallenges",
+        label: "What are your biggest reporting challenges today?",
+        description: "Select all that apply.",
+        type: "multiselect",
+        options: [
+          "Reports take too long to produce",
+          "Data is pulled manually from multiple systems",
+          "Numbers don't match between reports",
+          "Data is outdated by the time leadership sees it",
+          "Too many one-off spreadsheet reports",
+          "No single source of truth",
+          "Reports exist but are not actionable",
+        ],
+        required: false,
+      },
+      {
+        name: "adHocResponseTime",
+        label: "How long does it typically take to answer an ad-hoc data question from leadership?",
+        type: "radio",
+        options: [
+          "Same day or within hours",
+          "1–3 business days",
+          "1 week or more",
+          "We often cannot answer it at all",
+        ],
+        required: false,
+      },
+      {
+        name: "biggestReportingFrustration",
+        label: "Describe your single biggest reporting frustration.",
+        type: "textarea",
+        placeholder: "e.g., Every Monday I manually compile a sales summary from three spreadsheets. It takes 3 hours and is always out of date...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: "Insights & Decision Intelligence",
+    subtitle: "Let's evaluate whether your team has what it needs to make fast, confident decisions.",
+    fields: [
+      {
+        name: "decisionWithoutData",
+        label: "How often are significant business decisions made without reliable or timely data?",
+        type: "radio",
+        options: [
+          "Rarely — data is almost always available",
+          "Sometimes — data is available but often delayed",
+          "Frequently — leadership regularly relies on gut feel",
+          "Almost always — we lack the infrastructure to support decisions",
+        ],
+        required: false,
+      },
+      {
+        name: "realtimeKpiVisibility",
+        label: "Do you have real-time or near-real-time visibility into your key business KPIs?",
+        type: "radio",
+        options: [
+          "Yes — live dashboards are in place",
+          "Partially — some KPIs are visible, others are not",
+          "No — KPIs are reported weekly or monthly at best",
+          "We do not have formally defined KPIs",
+        ],
+        required: false,
+      },
+      {
+        name: "desiredKpis",
+        label: "What KPIs does your leadership team wish they had better visibility into?",
+        type: "textarea",
+        placeholder: "e.g., Cash flow in real time, gross margin by product line, customer acquisition cost by channel...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: "Systems, Tools & Data Environment",
+    subtitle: "Understanding your current tools helps us build a modernization path that fits your environment.",
+    fields: [
+      {
+        name: "primaryDataStore",
+        label: "Where does your business data primarily live today?",
+        type: "radio",
+        options: [
+          "Mostly spreadsheets (Excel or Google Sheets)",
+          "QuickBooks, Xero, or similar accounting software",
+          "A CRM or ERP system",
+          "A mix of tools with no central location",
+          "A cloud data warehouse (Snowflake, BigQuery, etc.)",
+        ],
+        required: false,
+      },
+      {
+        name: "biTools",
+        label: "Which reporting or BI tools does your team use?",
+        type: "multiselect",
+        options: [
+          "Excel or Google Sheets",
+          "Microsoft Power BI",
+          "Tableau",
+          "Looker or Looker Studio",
+          "Custom-built reports",
+          "No formal BI tool",
+        ],
+      },
+      {
+        name: "crmErpSystems",
+        label: "What core business software are you currently using?",
+        type: "textarea",
+        placeholder: "e.g., HubSpot CRM, QuickBooks, Shopify, Gusto HR...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "Prioritization",
+    subtitle: "Let's focus on where to start. The best modernization plans begin with quick wins that build confidence and momentum.",
+    fields: [
+      {
+        name: "quickWins",
+        label: "What should be improved first to generate quick wins within 30–60 days?",
+        type: "textarea",
+        placeholder: "e.g., Automate the weekly sales report. Replace the manual cash flow spreadsheet with a live dashboard...",
+        required: false,
+      },
+      {
+        name: "successIn90Days",
+        label: "What does success look like for your business in 90 days?",
+        type: "textarea",
+        placeholder: "e.g., I have a live dashboard I check every morning. My team spends zero hours building manual reports...",
+        required: false,
+      },
+      {
+        name: "changeReadiness",
+        label: "How ready is your team to adopt new tools and processes?",
+        description: "1 = Significant resistance expected   |   5 = Fully ready and motivated",
+        type: "scale",
+        options: ["1", "2", "3", "4", "5"],
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "Executive Summary",
+    subtitle: "A few final questions to help our team craft your personalized executive summary and 30-60-90 day roadmap.",
+    fields: [
+      {
+        name: "biggestChallenge",
+        label: "What is your single biggest data or analytics challenge today?",
+        type: "textarea",
+        placeholder: "e.g., I have no idea which customers or products are actually driving profit. Every report takes hours to build...",
+        required: false,
+      },
+      {
+        name: "leadershipOutcomes",
+        label: "What outcomes matter most to you right now?",
+        type: "multiselect",
+        options: [
+          "Faster and more confident decision-making",
+          "Reduced time spent on manual reporting",
+          "Improved data accuracy and trust",
+          "Real-time visibility into business performance",
+          "Understanding which customers and products drive profit",
+          "Scalable analytics without hiring more staff",
+        ],
+        required: false,
+      },
+      {
+        name: "fiftyTwoDays",
+        label: "Imagine your organization had stronger data intelligence, automated reporting, and more reliable insight delivery — enough to give your team back one full day every week. What problems would that eliminate, and how would you reinvest those 52 days per year to accelerate decisions, improve operations, serve customers better, or grow the business?",
+        type: "textarea",
+        placeholder: "e.g., We would eliminate the weekly manual reporting cycle entirely. Those 52 days would go toward building better customer relationships, closing deals faster, and finally having time to analyze which products are actually profitable...",
+        required: false,
+      },
+      {
+        name: "contactPreference",
+        label: "How would you prefer to receive your executive summary and roadmap?",
+        type: "radio",
+        options: [
+          "Email PDF summary",
+          "Live virtual walkthrough with the consulting team",
+          "Online portal or dashboard",
+        ],
+      },
+    ],
+  },
+];
+
+// ─── MEDIUM (under 500 employees) ─────────────────────────────────────────────
+// 9 sections — moderate depth, growing organizations navigating complexity
+
+export const MEDIUM_SECTIONS: SectionConfig[] = [
+  {
+    id: 1,
+    title: "Executive Priorities",
+    subtitle: "Help us understand your organization's strategic focus and where data limitations are holding you back.",
+    fields: [
+      {
+        name: "topPriorities",
+        label: "What are your top strategic business priorities for this year?",
+        description: "Select all that apply.",
+        type: "multiselect",
+        options: [
+          "Revenue growth and market expansion",
+          "Operational efficiency and cost reduction",
+          "Customer experience improvement",
+          "Digital transformation",
+          "Regulatory compliance and risk management",
+          "Talent acquisition and workforce development",
+          "Product or service innovation",
+          "Supply chain optimization",
+        ],
+        required: false,
+      },
+      {
+        name: "dataConfidence",
+        label: "How confident are you that your team has the data visibility needed to execute on these priorities?",
+        description: "1 = No confidence at all   |   5 = Fully confident",
+        type: "scale",
+        options: ["1", "2", "3", "4", "5"],
+        required: false,
+      },
+      {
+        name: "painfulDepartments",
+        label: "Which departments feel the most pain from data and reporting limitations today?",
+        type: "multiselect",
+        options: [
+          "Finance and Accounting",
+          "Sales and Revenue",
+          "Operations",
+          "Marketing",
+          "Human Resources",
+          "Information Technology",
+          "Customer Success and Service",
+          "Executive Leadership",
+        ],
+      },
+      {
+        name: "dataVisionStatement",
+        label: "What would achieving better data visibility and faster insights mean for your business?",
+        type: "textarea",
+        placeholder: "e.g., We would close the books in 2 days instead of 10 and identify margin leaks in real time...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "Current Reporting Pain Points",
+    subtitle: "Let's assess the current state of your reporting and where it is failing your leadership team.",
+    fields: [
+      {
+        name: "reportCount",
+        label: "Approximately how many reports or dashboards does your organization maintain today?",
+        type: "radio",
+        options: ["Fewer than 10", "10–30", "31–75", "More than 75", "Unknown"],
+        required: false,
+      },
+      {
+        name: "reportingChallenges",
+        label: "What are your biggest reporting and dashboard challenges today?",
+        description: "Select all that apply.",
+        type: "multiselect",
+        options: [
+          "Reports take too long to produce",
+          "Data is pulled manually from multiple systems",
+          "Numbers don't match between reports",
+          "No self-service capability for business users",
+          "Data is outdated by the time it reaches leadership",
+          "Too many one-off spreadsheet reports",
+          "No single source of truth",
+          "Executive dashboards don't exist or are inadequate",
+          "Reports exist but are not actionable",
+        ],
+        required: false,
+      },
+      {
+        name: "adHocResponseTime",
+        label: "How long does it typically take to answer an ad-hoc data question from leadership?",
+        type: "radio",
+        options: [
+          "Same day or within hours",
+          "1–3 business days",
+          "1 week or more",
+          "We often cannot answer it at all",
+        ],
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: "Data Quality, Trust & Governance",
+    subtitle: "Data that is not trusted will never be used. Let's understand the current state of your data quality.",
+    fields: [
+      {
+        name: "dataTrustLevel",
+        label: "How much does your leadership team trust the data they receive?",
+        description: "1 = We frequently question the numbers   |   5 = Full trust, decisions are made confidently",
+        type: "scale",
+        options: ["1", "2", "3", "4", "5"],
+        required: false,
+      },
+      {
+        name: "dataQualityIssues",
+        label: "Where do data quality issues most frequently occur in your organization?",
+        type: "multiselect",
+        options: [
+          "Manual data entry errors at the source",
+          "Data siloed in disconnected systems",
+          "Manual transformation in spreadsheets",
+          "Stale data extracts that are out of date",
+          "Inconsistent definitions across departments",
+          "Missing or incomplete data records",
+          "Duplicate records across systems",
+        ],
+        required: false,
+      },
+      {
+        name: "governancePolicies",
+        label: "Does your organization have documented data governance policies and data ownership standards?",
+        type: "radio",
+        options: [
+          "Yes — formal policies exist and are enforced",
+          "Partially — some policies exist but are inconsistent",
+          "No — we rely on informal practices",
+          "We are actively building governance now",
+        ],
+        required: false,
+      },
+      {
+        name: "badDataImpact",
+        label: "Describe the most significant impact your organization has experienced from poor data quality.",
+        type: "textarea",
+        placeholder: "e.g., Incorrect revenue forecasts led to a missed hiring plan. We discovered the error 6 weeks after the fact...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: "Manual Processes & Automation Opportunities",
+    subtitle: "Manual, repetitive work is one of the highest-cost areas in any organization. Let's identify where automation can help.",
+    fields: [
+      {
+        name: "manualTimePercent",
+        label: "Estimate the percentage of your team's productive time spent on manual, repetitive data tasks each week.",
+        type: "radio",
+        options: [
+          "Less than 10%",
+          "10–25%",
+          "25–50%",
+          "More than 50%",
+          "We have not measured this",
+        ],
+        required: false,
+      },
+      {
+        name: "painfulManualProcesses",
+        label: "Which manual processes cause the most pain or risk today?",
+        type: "multiselect",
+        options: [
+          "Manual Excel or spreadsheet-based reporting",
+          "Copy-paste between systems",
+          "Email-based data sharing and approvals",
+          "Manual reconciliation of financial data",
+          "Double data entry across multiple systems",
+          "Monthly or quarterly data consolidation",
+          "Manual compliance or audit reporting",
+        ],
+        required: false,
+      },
+      {
+        name: "reclaimedTimeUse",
+        label: "If your team reclaimed 20–30% of their time from manual work, what would they focus on instead?",
+        type: "textarea",
+        placeholder: "e.g., Focus on customer analysis, build better forecasting models, pursue new growth initiatives...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "Insights & Decision Intelligence",
+    subtitle: "The purpose of data is to drive better decisions, faster. Let's evaluate whether your organization is achieving that.",
+    fields: [
+      {
+        name: "decisionWithoutData",
+        label: "How often are significant business decisions made without reliable or timely data?",
+        type: "radio",
+        options: [
+          "Rarely — data is almost always available",
+          "Sometimes — data is available but often delayed",
+          "Frequently — leadership regularly relies on gut feel",
+          "Almost always — we lack the data infrastructure to support decisions",
+        ],
+        required: false,
+      },
+      {
+        name: "realtimeKpiVisibility",
+        label: "Do you have real-time or near-real-time visibility into your key business KPIs?",
+        type: "radio",
+        options: [
+          "Yes — live dashboards and alerts are in place",
+          "Partially — some KPIs are visible, others are not",
+          "No — KPIs are reported weekly or monthly at best",
+          "We do not have formally defined KPIs",
+        ],
+        required: false,
+      },
+      {
+        name: "desiredKpis",
+        label: "What are the top KPIs your leadership team wishes they had better visibility into?",
+        type: "textarea",
+        placeholder: "e.g., Customer acquisition cost by channel, gross margin by product line, operational throughput...",
+        required: false,
+      },
+      {
+        name: "predictiveAnalytics",
+        label: "Does your organization currently use predictive analytics or forecasting models?",
+        type: "radio",
+        options: [
+          "Yes — actively used in production",
+          "In development or piloting",
+          "We use manual forecasting methods (Excel, gut feel)",
+          "No predictive capability exists today",
+        ],
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "Systems, Tools & Data Environment",
+    subtitle: "Understanding your technology landscape is essential to designing a modernization roadmap that builds on what you have.",
+    fields: [
+      {
+        name: "primaryDataStore",
+        label: "What is your primary data storage or warehouse environment today?",
+        type: "radio",
+        options: [
+          "No formal data warehouse — we use flat files",
+          "Excel or Google Sheets",
+          "On-premise SQL Server or Oracle",
+          "Snowflake",
+          "Google BigQuery",
+          "Amazon Redshift",
+          "Other cloud or hybrid environment",
+        ],
+        required: false,
+      },
+      {
+        name: "biTools",
+        label: "Which Business Intelligence or reporting tools does your organization use?",
+        type: "multiselect",
+        options: [
+          "Microsoft Power BI",
+          "Tableau",
+          "Looker or Looker Studio",
+          "Excel or Google Sheets",
+          "Qlik",
+          "Domo",
+          "Custom-built reports",
+          "No formal BI tool",
+        ],
+      },
+      {
+        name: "crmErpSystems",
+        label: "What CRM, ERP, or core business systems are currently in use?",
+        type: "textarea",
+        placeholder: "e.g., Salesforce CRM, NetSuite ERP, Workday HCM, HubSpot...",
+        required: false,
+      },
+      {
+        name: "integrationQuality",
+        label: "How well-integrated are your core business systems with each other and your reporting tools?",
+        type: "radio",
+        options: [
+          "Fully integrated — data flows automatically",
+          "Partially integrated — some manual steps required",
+          "Mostly manual — data is extracted and moved manually",
+          "Not integrated — each system is completely siloed",
+        ],
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 7,
+    title: "AI & Automation Readiness",
+    subtitle: "AI and automation are creating real competitive advantages. Let's assess where your organization stands.",
+    fields: [
+      {
+        name: "aiMaturity",
+        label: "How would you describe your organization's current AI and automation maturity?",
+        type: "radio",
+        options: [
+          "Not started — AI is not on our radar yet",
+          "Exploring — we are researching and learning",
+          "Piloting — we have one or two proof-of-concept projects",
+          "Implementing — AI is being deployed in select areas",
+          "Scaled — AI is embedded across multiple business functions",
+        ],
+        required: false,
+      },
+      {
+        name: "automationOpportunities",
+        label: "Which automation opportunities are most relevant to your organization?",
+        type: "multiselect",
+        options: [
+          "Automated report generation and distribution",
+          "Workflow and approval process automation",
+          "AI-powered demand or revenue forecasting",
+          "Anomaly detection and alerting",
+          "Natural language querying of business data",
+          "Document processing and data extraction",
+          "AI-generated executive summaries and insights",
+        ],
+      },
+      {
+        name: "aiConcerns",
+        label: "What is your biggest concern or hesitation about AI adoption?",
+        type: "textarea",
+        placeholder: "e.g., Data privacy risks, lack of explainability, cost, regulatory compliance, staff resistance...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 8,
+    title: "Prioritization",
+    subtitle: "Let's focus on what to tackle first. The best modernization strategies begin with quick wins that build momentum.",
+    fields: [
+      {
+        name: "quickWins",
+        label: "What should be modernized first to generate quick wins within 30–60 days?",
+        type: "textarea",
+        placeholder: "e.g., Automate the weekly sales dashboard. Replace the manual finance close spreadsheet with a connected BI report...",
+        required: false,
+      },
+      {
+        name: "successIn90Days",
+        label: "What does success look like for your organization in 90 days?",
+        type: "textarea",
+        placeholder: "e.g., Executive team has a live dashboard, month-end close is automated, sales pipeline is visible in real time...",
+        required: false,
+      },
+      {
+        name: "changeReadiness",
+        label: "How ready is your organization for the change management required by modernization?",
+        description: "1 = Not ready — significant resistance expected   |   5 = Fully ready — strong executive sponsorship",
+        type: "scale",
+        options: ["1", "2", "3", "4", "5"],
+      },
+    ],
+  },
+  {
+    id: 9,
+    title: "Executive Summary",
+    subtitle: "To close the assessment, share your perspective on the big picture. This helps our team tailor your personalized executive summary and roadmap.",
+    fields: [
+      {
+        name: "biggestChallenge",
+        label: "What is your single biggest data or analytics challenge today?",
+        type: "textarea",
+        placeholder: "e.g., Our leadership team makes decisions based on reports that are 2 weeks old, built manually in Excel, and nobody agrees on the numbers...",
+        required: false,
+      },
+      {
+        name: "next30DaysGoal",
+        label: "What would you like to accomplish in the next 30 days related to data and analytics?",
+        type: "textarea",
+        placeholder: "e.g., Get alignment on a single source of truth for revenue. Eliminate one major manual report...",
+        required: false,
+      },
+      {
+        name: "leadershipOutcomes",
+        label: "What outcomes matter most to your leadership team?",
+        type: "multiselect",
+        options: [
+          "Faster and more confident decision-making",
+          "Reduced operational costs",
+          "Improved data accuracy and trust",
+          "Real-time visibility into business performance",
+          "Elimination of manual reporting work",
+          "Scalable analytics without growing headcount",
+          "AI-enabled insights and forecasting",
+          "Competitive advantage through data",
+        ],
+        required: false,
+      },
+      {
+        name: "fiftyTwoDays",
+        label: "Imagine your organization had stronger data intelligence, automated reporting, and more reliable insight delivery — enough to give your team back one full day every week. What problems would that eliminate, and how would you reinvest those 52 days per year to accelerate decisions, improve operations, serve customers better, or grow the business?",
+        type: "textarea",
+        placeholder: "e.g., We would eliminate the weekly manual reporting cycle entirely. Those 52 days would go toward building better customer relationships, closing deals faster, and finally having time to analyze which products are actually profitable...",
+        required: false,
+      },
+      {
+        name: "contactPreference",
+        label: "What is your preferred way to receive and review the executive summary and roadmap?",
+        type: "radio",
+        options: [
+          "Email PDF summary",
+          "Live virtual walkthrough with the consulting team",
+          "In-person presentation",
+          "Online portal or dashboard",
+        ],
+      },
+    ],
+  },
+];
+
+// ─── ENTERPRISE (above 500 employees) ─────────────────────────────────────────
+// 11 sections — comprehensive, full discovery for complex organizations
+
+export const ENTERPRISE_SECTIONS: SectionConfig[] = [
   {
     id: 1,
     title: "Executive Priorities",
@@ -548,7 +1214,7 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         name: "currentProblemCost",
         label: "Describe the cost or business impact of your current data and reporting problems.",
         type: "textarea",
-        placeholder: "e.g., We spend approximately $300K/year on manual reporting labor. Finance closes the books 15 days late each quarter, delaying decisions...",
+        placeholder: "e.g., We spend approximately $300K/year on manual reporting labor. Finance closes the books 15 days late each quarter...",
         required: false,
       },
       {
@@ -668,6 +1334,13 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
         required: false,
       },
       {
+        name: "fiftyTwoDays",
+        label: "Imagine your organization had stronger data intelligence, automated reporting, and more reliable insight delivery — enough to give your team back one full day every week. What problems would that eliminate, and how would you reinvest those 52 days per year to accelerate decisions, improve operations, serve customers better, or grow the business?",
+        type: "textarea",
+        placeholder: "e.g., We would eliminate the weekly manual reporting cycle entirely. Those 52 days would go toward building better customer relationships, closing deals faster, and finally having time to analyze which products are actually profitable...",
+        required: false,
+      },
+      {
         name: "additionalContext",
         label: "Is there any additional context, constraints, or background our consulting team should know?",
         type: "textarea",
@@ -688,4 +1361,17 @@ export const ASSESSMENT_SECTIONS: SectionConfig[] = [
   },
 ];
 
-export const TOTAL_SECTIONS = ASSESSMENT_SECTIONS.length;
+// ─── Helpers ───────────────────────────────────────────────────────────────────
+
+export function getSections(companySize?: string | null): SectionConfig[] {
+  if (companySize === "small") return SMALL_SECTIONS;
+  if (companySize === "medium") return MEDIUM_SECTIONS;
+  return ENTERPRISE_SECTIONS;
+}
+
+export function getTotalSections(companySize?: string | null): number {
+  return getSections(companySize).length;
+}
+
+export const ASSESSMENT_SECTIONS = ENTERPRISE_SECTIONS;
+export const TOTAL_SECTIONS = ENTERPRISE_SECTIONS.length;

@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ASSESSMENT_SECTIONS } from "@/config/sections";
+import { getSections } from "@/config/sections";
 
 export default function AdminDetail() {
   const params = useParams();
@@ -114,6 +114,10 @@ export default function AdminDetail() {
                   <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Industry</div>
                   <div className="text-foreground">{assessment.industry || "N/A"}</div>
                 </div>
+                <div>
+                  <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">Company Size</div>
+                  <div className="text-foreground capitalize">{assessment.companySize || "N/A"}</div>
+                </div>
               </CardContent>
             </Card>
 
@@ -166,8 +170,9 @@ export default function AdminDetail() {
 
           <div className="md:col-span-2 space-y-6">
             <h2 className="text-2xl font-bold lowercase tracking-tight text-foreground mb-6">section responses</h2>
-            {ASSESSMENT_SECTIONS.map((sectionConfig) => {
-              const response = assessment.sections?.find(s => s.sectionNum === sectionConfig.id);
+            {getSections(assessment.companySize).map((sectionConfig, idx) => {
+              const sectionNum = idx + 1;
+              const response = assessment.sections?.find(s => s.sectionNum === sectionNum);
               if (!response) return null;
 
               return (
@@ -198,10 +203,7 @@ export default function AdminDetail() {
             })}
             {(!assessment.sections || assessment.sections.length === 0) && (
               <Card className="bg-card border-border border-dashed">
-                <CardContent className="py-16 text-center text-muted-foreground flex flex-col items-center gap-2">
-                  <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-2">
-                    <span className="text-xl">📄</span>
-                  </div>
+                <CardContent className="py-16 text-center text-muted-foreground">
                   <p>No responses recorded yet.</p>
                 </CardContent>
               </Card>

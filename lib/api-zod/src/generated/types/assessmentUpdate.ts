@@ -5,6 +5,7 @@
  * Executive Assessment API
  * OpenAPI spec version: 0.1.0
  */
+import type { AssessmentUpdateCompanySize } from './assessmentUpdateCompanySize';
 
 export interface AssessmentUpdate {
   firstName?: string;
@@ -13,4 +14,5 @@ export interface AssessmentUpdate {
   company?: string;
   jobTitle?: string;
   industry?: string;
+  companySize?: AssessmentUpdateCompanySize;
 }

@@ -25,7 +25,8 @@ export const CreateAssessmentBody = zod.object({
   "email": zod.string(),
   "company": zod.string(),
   "jobTitle": zod.string(),
-  "industry": zod.string().optional()
+  "industry": zod.string().optional(),
+  "companySize": zod.enum(['small', 'medium', 'enterprise']).optional()
 })
 
 
@@ -44,6 +45,7 @@ export const GetAssessmentResponse = zod.object({
   "company": zod.string(),
   "jobTitle": zod.string(),
   "industry": zod.string().nullish(),
+  "companySize": zod.string().nullish(),
   "status": zod.string(),
   "sections": zod.array(zod.object({
   "id": zod.number(),
@@ -71,7 +73,8 @@ export const UpdateAssessmentBody = zod.object({
   "email": zod.string().optional(),
   "company": zod.string().optional(),
   "jobTitle": zod.string().optional(),
-  "industry": zod.string().optional()
+  "industry": zod.string().optional(),
+  "companySize": zod.enum(['small', 'medium', 'enterprise']).optional()
 })
 
 export const UpdateAssessmentResponse = zod.object({
@@ -82,6 +85,7 @@ export const UpdateAssessmentResponse = zod.object({
   "company": zod.string(),
   "jobTitle": zod.string(),
   "industry": zod.string().nullish(),
+  "companySize": zod.string().nullish(),
   "status": zod.enum(['draft', 'submitted', 'paid', 'approved', 'completed']),
   "createdAt": zod.string(),
   "updatedAt": zod.string().nullish()
@@ -123,6 +127,7 @@ export const SubmitAssessmentResponse = zod.object({
   "company": zod.string(),
   "jobTitle": zod.string(),
   "industry": zod.string().nullish(),
+  "companySize": zod.string().nullish(),
   "status": zod.enum(['draft', 'submitted', 'paid', 'approved', 'completed']),
   "createdAt": zod.string(),
   "updatedAt": zod.string().nullish()
@@ -157,6 +162,7 @@ export const ListAdminAssessmentsResponseItem = zod.object({
   "company": zod.string(),
   "jobTitle": zod.string(),
   "industry": zod.string().nullish(),
+  "companySize": zod.string().nullish(),
   "status": zod.string(),
   "sectionsCompleted": zod.number().optional(),
   "createdAt": zod.string()
@@ -179,6 +185,7 @@ export const GetAdminAssessmentResponse = zod.object({
   "company": zod.string(),
   "jobTitle": zod.string(),
   "industry": zod.string().nullish(),
+  "companySize": zod.string().nullish(),
   "status": zod.string(),
   "sections": zod.array(zod.object({
   "id": zod.number(),
@@ -213,6 +220,7 @@ export const SendResultsResponse = zod.object({
   "company": zod.string(),
   "jobTitle": zod.string(),
   "industry": zod.string().nullish(),
+  "companySize": zod.string().nullish(),
   "status": zod.enum(['draft', 'submitted', 'paid', 'approved', 'completed']),
   "createdAt": zod.string(),
   "updatedAt": zod.string().nullish()

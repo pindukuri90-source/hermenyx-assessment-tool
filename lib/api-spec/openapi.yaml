@@ -274,6 +274,9 @@ components:
           type: string
         industry:
           type: string
+        companySize:
+          type: string
+          enum: [small, medium, enterprise]
 
     AssessmentUpdate:
       type: object
@@ -290,6 +293,9 @@ components:
           type: string
         industry:
           type: string
+        companySize:
+          type: string
+          enum: [small, medium, enterprise]
 
     Assessment:
       type: object
@@ -308,6 +314,8 @@ components:
         jobTitle:
           type: string
         industry:
+          type: ["string", "null"]
+        companySize:
           type: ["string", "null"]
         status:
           type: string
@@ -357,6 +365,8 @@ components:
           type: string
         industry:
           type: ["string", "null"]
+        companySize:
+          type: ["string", "null"]
         status:
           type: string
         sections:
@@ -389,6 +399,8 @@ components:
         jobTitle:
           type: string
         industry:
+          type: ["string", "null"]
+        companySize:
           type: ["string", "null"]
         status:
           type: string

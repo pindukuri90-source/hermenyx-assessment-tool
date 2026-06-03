@@ -15,10 +15,10 @@ router.post("/assessments", async (req, res) => {
   if (!parsed.success) {
     return res.status(400).json({ error: "Invalid input" });
   }
-  const { firstName, lastName, email, company, jobTitle, industry } = parsed.data;
+  const { firstName, lastName, email, company, jobTitle, industry, companySize } = parsed.data;
   const [assessment] = await db
     .insert(assessmentsTable)
-    .values({ firstName, lastName, email, company, jobTitle, industry })
+    .values({ firstName, lastName, email, company, jobTitle, industry, companySize })
     .returning();
   return res.status(201).json(serializeAssessment(assessment));
 });
@@ -140,6 +140,7 @@ function serializeAssessment(a: typeof assessmentsTable.$inferSelect) {
     company: a.company,
     jobTitle: a.jobTitle,
     industry: a.industry,
+    companySize: a.companySize,
     status: a.status,
     createdAt: a.createdAt?.toISOString(),
     updatedAt: a.updatedAt?.toISOString() ?? null,
