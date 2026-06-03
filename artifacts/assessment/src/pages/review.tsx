@@ -21,7 +21,7 @@ export default function Review() {
       { id },
       {
         onSuccess: () => {
-          setLocation(`/assessment/${id}/payment`);
+          setLocation(`/assessment/${id}/confirmation`);
         },
       }
     );
@@ -151,7 +151,7 @@ export default function Review() {
             disabled={!isFullyComplete || submitAssessment.isPending}
             onClick={handleSubmit}
           >
-            {submitAssessment.isPending ? "submitting..." : "submit assessment"}
+            {submitAssessment.isPending ? "submitting..." : "submit and request my executive summary"}
           </Button>
           {!isFullyComplete && (
             <p className="text-center text-sm text-destructive font-medium tracking-wide">

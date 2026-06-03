@@ -107,30 +107,6 @@ router.post("/assessments/:id/submit", async (req, res) => {
   return res.json(serializeAssessment(updated));
 });
 
-router.post("/assessments/:id/checkout", async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  if (isNaN(id)) return res.status(400).json({ error: "Invalid id" });
-
-  const [assessment] = await db
-    .select()
-    .from(assessmentsTable)
-    .where(eq(assessmentsTable.id, id));
-  if (!assessment) return res.status(404).json({ error: "Not found" });
-
-  await db
-    .update(assessmentsTable)
-    .set({ status: "paid", updatedAt: new Date() })
-    .where(eq(assessmentsTable.id, id));
-
-  const sessionId = `session_${id}_${Date.now()}`;
-  const baseUrl = process.env.REPLIT_DEV_DOMAIN
-    ? `https://${process.env.REPLIT_DEV_DOMAIN}`
-    : "http://localhost";
-  const checkoutUrl = `${baseUrl}/assessment/${id}/confirmation?session=${sessionId}`;
-
-  return res.json({ checkoutUrl, sessionId });
-});
-
 function serializeAssessment(a: typeof assessmentsTable.$inferSelect) {
   return {
     id: a.id,

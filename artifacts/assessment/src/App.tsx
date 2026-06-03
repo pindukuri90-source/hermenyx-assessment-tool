@@ -8,7 +8,7 @@ import Landing from "@/pages/landing";
 import Start from "@/pages/start";
 import Section from "@/pages/section";
 import Review from "@/pages/review";
-import Payment from "@/pages/payment";
+
 import Confirmation from "@/pages/confirmation";
 import AdminDashboard from "@/pages/admin-dashboard";
 import AdminDetail from "@/pages/admin-detail";
@@ -22,7 +22,6 @@ function Router() {
       <Route path="/start" component={Start} />
       <Route path="/assessment/:id/section/:sectionNum" component={Section} />
       <Route path="/assessment/:id/review" component={Review} />
-      <Route path="/assessment/:id/payment" component={Payment} />
       <Route path="/assessment/:id/confirmation" component={Confirmation} />
       
       <Route path="/admin" component={AdminDashboard} />
