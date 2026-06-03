@@ -34,8 +34,11 @@ export default function Landing() {
           </div>
 
           <div className="flex flex-col items-center gap-8">
-            <Link href="/start">
-              <Button size="lg" className="h-14 px-10 text-lg font-medium shadow-md bg-primary text-background hover:bg-primary/90 tracking-wide">
+            <Link href="/start" asChild>
+              <Button
+                size="lg"
+                className="h-14 px-10 text-lg font-medium shadow-md bg-primary text-background hover:bg-primary/90 tracking-wide"
+              >
                 begin assessment
               </Button>
             </Link>
