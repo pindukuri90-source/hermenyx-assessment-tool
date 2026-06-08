@@ -6,6 +6,8 @@ import { useCreateAssessment } from "@workspace/api-client-react";
 import { useAssessmentSession } from "@/hooks/use-assessment-session";
 import { cn } from "@/lib/utils";
 
+import { DiagnosticRequest } from "@/components/diagnostic-request";
+
 import {
   Form,
   FormControl,
@@ -21,23 +23,23 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 const COMPANY_SIZES = [
   {
     value: "small",
-    label: "Small",
-    description: "Under 100 employees",
-    detail: "Concise, focused assessment covering your highest-impact opportunities.",
+    label: "accelerate",
+    description: "under 100 employees",
+    detail: "Concise and focused assessment for lean teams identifying high-impact modernization opportunities.",
     sections: "6 sections",
   },
   {
     value: "medium",
-    label: "Medium",
-    description: "Under 500 employees",
-    detail: "Balanced assessment for growing organizations navigating data complexity.",
+    label: "elevate",
+    description: "under 500 employees",
+    detail: "Balanced assessment for growing organizations managing data, reporting, and workflow complexity.",
     sections: "9 sections",
   },
   {
     value: "enterprise",
-    label: "Enterprise",
-    description: "Above 500 employees",
-    detail: "Comprehensive discovery for complex, multi-department organizations.",
+    label: "transform",
+    description: "above 500 employees",
+    detail: "Comprehensive and detailed discovery for complex, multi-department operating environments.",
     sections: "11 sections",
   },
 ] as const;
@@ -75,6 +77,12 @@ export default function Start() {
 
   const selectedSize = form.watch("companySize");
 
+  const assessmentTierLabel: Record<string, string> = {
+    small: "accelerate",
+    medium: "elevate",
+    enterprise: "transform",
+  };
+
   function onSubmit(values: FormValues) {
     createAssessment.mutate(
       { data: values },
@@ -86,6 +94,7 @@ export default function Start() {
       }
     );
   }
+
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans py-8 px-4 sm:px-6 items-center justify-center">
@@ -106,10 +115,10 @@ export default function Start() {
             {/* Company Size Selector */}
             <div className="space-y-3">
               <div className="text-center space-y-1">
-                <h1 className="text-2xl sm:text-3xl font-bold lowercase tracking-tight text-foreground">
+                <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
                   select your company size
                 </h1>
-                <p className="text-base text-muted-foreground">
+                <p className="text-base sm:text-lg text-muted-foreground leading-snug">
                   your assessment is tailored to your organization's scale
                 </p>
               </div>
@@ -138,7 +147,7 @@ export default function Start() {
                               <div className="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-primary" />
                             )}
                             <span className={cn(
-                              "text-lg font-bold tracking-tight",
+                              "text-2xl font-bold tracking-tight",
                               isSelected ? "text-primary" : "text-foreground"
                             )}>
                               {size.label}
@@ -153,7 +162,7 @@ export default function Start() {
                               {size.detail}
                             </span>
                             <span className={cn(
-                              "text-xs font-semibold mt-3 tracking-wide",
+                              "text-lg font-bold mt-3 tracking-wide",
                               isSelected ? "text-accent" : "text-muted-foreground/60"
                             )}>
                               {size.sections}
@@ -306,19 +315,30 @@ export default function Start() {
 
             <Button
               type="submit"
-              className="w-full h-14 text-lg font-medium tracking-wide bg-primary text-background hover:bg-primary/90"
+              className="w-full h-14 text-lg font-semibold tracking-wide bg-primary text-background hover:bg-primary/90"
               disabled={createAssessment.isPending}
             >
               {createAssessment.isPending
                 ? "initializing..."
                 : selectedSize
-                ? `begin ${selectedSize} assessment`
+                ? `begin your ${assessmentTierLabel[selectedSize]} assessment`
                 : "begin assessment"}
-            </Button>
+              </Button>
+            
+            <div className="max-w-2xl mx-auto rounded-xl border border-border/70 bg-card/40 px-5 py-4 text-center">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                Plan for approximately{" "}
+                <span className="font-medium text-foreground">15–30 minutes</span>{" "}
+                to complete the assessment, depending on company size and response depth.
+              </p>
+            </div>
+            
+            <DiagnosticRequest pageContext="Hermenyx assessment start page" />
 
-            <p className="text-center text-xs text-muted-foreground pb-4">
-              accelerate intelligently_
-            </p>
+            <div className="text-center font-medium tracking-widest text-base">
+              <span className="text-[#E96A15]">accelerate intelligently</span>
+              <span className="text-[#27D3C3]">_</span>
+            </div>
           </form>
         </Form>
       </div>

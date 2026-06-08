@@ -54,12 +54,12 @@ app.use("/api", router);
 
 const publicDir = path.resolve(
   __dirname,
-  "../../../assessment/dist/public",
+  "../../assessment/dist/public",
 );
 
 app.use(express.static(publicDir));
 
-app.get("*", (req, res, next) => {
+app.use((req, res, next) => {
   if (req.path.startsWith("/api")) {
     return next();
   }

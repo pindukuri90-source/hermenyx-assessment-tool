@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { getSections } from "@/config/sections";
 import { ArrowRight } from "lucide-react";
 
+import { DiagnosticRequest } from "@/components/diagnostic-request";
+
 export default function Review() {
   const params = useParams();
   const [, setLocation] = useLocation();
@@ -50,9 +52,9 @@ export default function Review() {
   const isFullyComplete = completedCount === totalSections;
 
   const sizeBadge: Record<string, string> = {
-    small: "Small — Under 100 employees",
-    medium: "Medium — Under 500 employees",
-    enterprise: "Enterprise — Above 500 employees",
+    small: "Accelerate",
+    medium: "Elevate",
+    enterprise: "Transform",
   };
 
   return (
@@ -158,6 +160,12 @@ export default function Review() {
               Please complete all {totalSections} sections before submitting.
             </p>
           )}
+          <DiagnosticRequest pageContext="Hermenyx assessment review page" />
+
+          <div className="text-center font-medium tracking-widest text-base">
+            <span className="text-[#E96A15]">accelerate intelligently</span>
+            <span className="text-[#27D3C3]">_</span>
+          </div>
         </div>
       </div>
     </div>

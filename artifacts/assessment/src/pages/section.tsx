@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
+import { DiagnosticRequest } from "@/components/diagnostic-request";
+
 export default function Section() {
   const params = useParams<{ id: string; sectionNum: string }>();
   const [, setLocation] = useLocation();
@@ -169,6 +171,12 @@ export default function Section() {
               </Button>
             </div>
           </form>
+          <DiagnosticRequest pageContext="Hermenyx assessment section page" />
+
+          <div className="text-center font-medium tracking-widest text-base">
+            <span className="text-[#E96A15]">accelerate intelligently</span>
+            <span className="text-[#27D3C3]">_</span>
+          </div>
         </div>
       </div>
     </div>

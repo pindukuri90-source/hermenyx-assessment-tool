@@ -2,6 +2,8 @@ import { useParams } from "wouter";
 import { useGetAssessment, getGetAssessmentQueryKey } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 
+import { DiagnosticRequest } from "@/components/diagnostic-request";
+
 export default function Confirmation() {
   const params = useParams<{ id: string }>();
   const id = parseInt(params.id ?? "0", 10);
@@ -86,14 +88,38 @@ export default function Confirmation() {
             </div>
           </CardContent>
         </Card>
+        
 
         {assessment && (
-          <p className="text-sm text-muted-foreground tracking-wide">
-            Submission ID{" "}
-            <span className="font-mono font-medium text-foreground">#{assessment.id}</span>
-            {" "}— {assessment.company}
-          </p>
+          <div className="text-sm text-muted-foreground tracking-wide leading-relaxed">
+            <span>Assessment requested by </span>
+            <span className="font-medium text-foreground">
+              {assessment.firstName} {assessment.lastName}
+            </span>
+            {assessment.jobTitle && (
+              <>
+                <span> | </span>
+                <span className="font-medium text-foreground">
+                  {assessment.jobTitle}
+                </span>
+              </>
+            )}
+            {assessment.company && (
+              <>
+                <span> @ </span>
+                <span className="font-medium text-foreground">
+                  {assessment.company}
+                </span>
+              </>
+            )}
+          </div>
         )}
+
+        
+        <div className="text-center font-medium tracking-widest text-base">
+            <span className="text-[#E96A15]">accelerate intelligently</span>
+            <span className="text-[#27D3C3]">_</span>
+        </div>
       </div>
     </div>
   );
