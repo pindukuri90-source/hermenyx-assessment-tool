@@ -9,18 +9,65 @@ import {
 } from "@workspace/api-zod";
 
 const router = Router();
-
 router.post("/assessments", async (req, res) => {
   const parsed = CreateAssessmentBody.safeParse(req.body);
+
   if (!parsed.success) {
-    return res.status(400).json({ error: "Invalid input" });
+    return res.status(400).json({
+      error: "Invalid input",
+      issues: parsed.error.flatten(),
+    });
   }
-  const { firstName, lastName, email, company, jobTitle, industry, companySize } = parsed.data;
-  const [assessment] = await db
-    .insert(assessmentsTable)
-    .values({ firstName, lastName, email, company, jobTitle, industry, companySize })
-    .returning();
-  return res.status(201).json(serializeAssessment(assessment));
+
+  const {
+    firstName,
+    lastName,
+    email,
+    company,
+    jobTitle,
+    industry,
+    companySize,
+  } = parsed.data;
+
+  try {
+    const [assessment] = await db
+      .insert(assessmentsTable)
+      .values({
+        firstName,
+        lastName,
+        email,
+        company,
+        jobTitle,
+        industry,
+        companySize,
+      })
+      .returning();
+
+    return res.status(201).json(serializeAssessment(assessment));
+  } catch (err: any) {
+    console.error("Assessment insert failed", {
+      message: err?.message,
+      code: err?.code,
+      detail: err?.detail,
+      hint: err?.hint,
+      constraint: err?.constraint,
+      table: err?.table,
+      column: err?.column,
+      cause: err?.cause,
+      stack: err?.stack,
+    });
+
+    return res.status(500).json({
+      error: "Assessment insert failed",
+      message: err?.message,
+      code: err?.code,
+      detail: err?.detail,
+      hint: err?.hint,
+      constraint: err?.constraint,
+      table: err?.table,
+      column: err?.column,
+    });
+  }
 });
 
 router.get("/assessments/:id", async (req, res) => {
