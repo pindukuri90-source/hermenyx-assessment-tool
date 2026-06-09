@@ -5,7 +5,17 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
       <nav className="w-full px-8 py-6">
-        <img src="/images/hermenyx-logo-secondary.png" alt="hermenyx" className="h-10 sm:h-12 w-auto" />
+        <a
+          href="https://hermenyx.com"
+          aria-label="Return to Hermenyx website"
+          className="inline-flex items-center hover:opacity-90 transition-opacity"
+        >
+          <img
+            src="/images/hermenyx-logo-secondary.png"
+            alt="hermenyx"
+            className="h-8"
+          />
+        </a>
       </nav>
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         <div className="max-w-4xl w-full text-center space-y-4">

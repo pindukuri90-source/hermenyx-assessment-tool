@@ -83,12 +83,19 @@ export default function Section() {
     <div className="min-h-screen bg-background font-sans flex flex-col">
       {/* Top Nav */}
       <nav className="w-full px-4 sm:px-6 py-3 border-b border-border flex items-center justify-between bg-background sticky top-0 z-10">
+        {/* Logo */}
         <div className="flex items-center">
-          <img
-            src="/images/hermenyx-logo-secondary.png"
-            alt="hermenyx"
-            className="h-7 sm:h-8"
-          />
+          <a
+            href="https://hermenyx.com"
+            aria-label="Return to Hermenyx website"
+            className="inline-flex items-center hover:opacity-90 transition-opacity"
+          >
+            <img
+              src="/images/hermenyx-logo-secondary.png"
+              alt="hermenyx"
+              className="h-7 sm:h-8"
+            />
+          </a>
         </div>
         <div className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-widest truncate max-w-[180px] sm:max-w-none">
           {sectionConfig.title}

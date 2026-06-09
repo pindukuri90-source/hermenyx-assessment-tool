@@ -102,13 +102,18 @@ export default function Start() {
 
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <img
-            src="/images/hermenyx-logo-secondary.png"
-            alt="hermenyx"
-            className="h-10 sm:h-12"
-          />
+          <a
+            href="https://hermenyx.com"
+            aria-label="Return to Hermenyx website"
+            className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+          >
+            <img
+              src="/images/hermenyx-logo-secondary.png"
+              alt="hermenyx"
+              className="h-10 sm:h-12"
+            />
+          </a>
         </div>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 

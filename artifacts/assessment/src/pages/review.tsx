@@ -63,9 +63,18 @@ export default function Review() {
 
         {/* Logo */}
         <div className="flex justify-center">
-          <img src="/images/hermenyx-logo-secondary.png" alt="hermenyx" className="h-8 sm:h-10" />
+          <a
+            href="https://hermenyx.com"
+            aria-label="Return to Hermenyx website"
+            className="inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+          >
+            <img
+              src="/images/hermenyx-logo-secondary.png"
+              alt="hermenyx"
+              className="h-8 sm:h-10"
+            />
+          </a>
         </div>
-
         {/* Header */}
         <div className="text-center space-y-3">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground lowercase">
