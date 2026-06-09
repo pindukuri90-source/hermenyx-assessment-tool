@@ -171,12 +171,13 @@ export default function Section() {
               </Button>
             </div>
           </form>
-          <DiagnosticRequest pageContext="Hermenyx assessment section page" />
+          </div>
+        <DiagnosticRequest pageContext="Hermenyx assessment section page" />
 
           <div className="text-center font-medium tracking-widest text-base">
             <span className="text-[#E96A15]">accelerate intelligently</span>
             <span className="text-[#27D3C3]">_</span>
-          </div>
+          
         </div>
       </div>
     </div>

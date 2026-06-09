@@ -325,7 +325,7 @@ export default function Start() {
                 : "begin assessment"}
               </Button>
             
-            <div className="max-w-2xl mx-auto rounded-xl border border-border/70 bg-card/40 px-5 py-4 text-center">
+            <div className="max-w-2xl mx-auto rounded-xl border border-border/70 bg-card/40 px-5 py-4 text-center space-y-6">
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 Plan for approximately{" "}
                 <span className="font-medium text-foreground">15–30 minutes</span>{" "}
@@ -333,14 +333,19 @@ export default function Start() {
               </p>
             </div>
             
-            <DiagnosticRequest pageContext="Hermenyx assessment start page" />
-
-            <div className="text-center font-medium tracking-widest text-base">
-              <span className="text-[#E96A15]">accelerate intelligently</span>
-              <span className="text-[#27D3C3]">_</span>
-            </div>
+           
           </form>
         </Form>
+          
+         <div className="mt-3">
+          <DiagnosticRequest pageContext="Hermenyx assessment start page" />
+        </div> 
+          
+        <div className="pt-3 text-center font-medium tracking-widest text-base">
+          <span className="text-[#E96A15]">accelerate intelligently</span>
+          <span className="text-[#27D3C3]">_</span>
+        </div>
+
       </div>
     </div>
   );

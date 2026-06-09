@@ -22,7 +22,7 @@ export function DiagnosticRequest({
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="text-sm font-medium tracking-wide text-primary underline underline-offset-4 hover:text-primary/80"
+            className=" text-sm font-medium tracking-wide text-[#27D3C3] underline underline-offset-4 hover:text-primary/80"
           >
             request a hermenyx-led diagnostic assessment
           </button>
