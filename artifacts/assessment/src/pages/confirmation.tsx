@@ -2,7 +2,7 @@ import { useParams } from "wouter";
 import { useGetAssessment, getGetAssessmentQueryKey } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 
-import { DiagnosticRequest } from "@/components/diagnostic-request";
+
 
 export default function Confirmation() {
   const params = useParams<{ id: string }>();
@@ -25,9 +25,9 @@ export default function Confirmation() {
           </h1>
 
           <p className="text-lg text-foreground/80 leading-relaxed">
-            Thank you. Your executive data modernization assessment has been received.
-            Hermenyx will review your responses and identify the highest-impact opportunities
-            across reporting, automation, data intelligence, and AI readiness.
+             Thank you. Your assessment inputs have been received. hermenyx will review your
+              responses and identify practical opportunities to improve reporting,
+              automation, data intelligence, and AI readiness across your business.
           </p>
         </div>
 
@@ -82,12 +82,32 @@ export default function Confirmation() {
                   <span className="font-medium text-foreground">
                     {assessment?.email ?? "the email you provided"}
                   </span>{" "}
-                  with next steps or a suggested discovery conversation.
+                  with next steps. In the meantime, explore how Hermenyx helps organizations
+                  modernize data, reporting, automation, analytics, and AI readiness.
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
+        <div className="mx-auto max-w-lg space-y-5 rounded-xl border border-[#E96A15]/30 bg-card/60 px-6 py-7 shadow-sm">
+          <div className="space-y-2">
+            <div className="text-sm font-semibold uppercase tracking-widest text-[#E96A15]">
+              Continue the conversation
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              While we review your assessment, visit Hermenyx to learn how we help
+              teams accelerate intelligently through data engineering, cloud, process
+              automation, analytics, and AI-enabled modernization.
+            </p>
+          </div>
+
+          <a
+            href="https://hermenyx.com"
+            className="inline-flex items-center justify-center rounded-md bg-[#E96A15] px-5 py-3 text-sm font-semibold text-background transition hover:bg-[#E96A15]/90"
+          >
+            Visit hermenyx.com
+          </a>
+        </div>
         
 
         {assessment && (
