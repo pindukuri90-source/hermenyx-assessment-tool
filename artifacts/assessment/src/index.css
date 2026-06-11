@@ -56,13 +56,13 @@
 /* ─── Hermenyx Dark Theme (default) ─────────────────────── */
 /* Midnight Navy #000819 → HSL(221, 100%, 5%)               */
 /* Hermes Orange #E96A15 → HSL(24, 84%, 50%)                */
-/* Warm Ivory    #F2E6CF → HSL(39, 57%, 88%)                */
+/* Warm Ivory    #FAFAFA → HSL(0, 0%, 98%)                */
 /* Signal Teal   #27D3C3 → HSL(175, 69%, 49%)               */
 /* Slate Gray    #475569 → HSL(215, 19%, 35%)               */
 :root {
   /* Base */
   --background: 221 100% 5%;        /* #000819 */
-  --foreground: 39 57% 88%;         /* #F2E6CF Warm Ivory */
+  --foreground: 0 0% 98%;         /* #FAFAFA Warm Ivory */
 
   /* Borders & inputs */
   --border: 221 60% 14%;
@@ -71,12 +71,12 @@
 
   /* Cards — slightly lifted from background */
   --card: 221 80% 8%;
-  --card-foreground: 39 57% 88%;
+  --card-foreground: 0 0% 98%;   /* #FAFAFA Warm Ivory */
   --card-border: 221 50% 16%;
 
   /* Popovers */
   --popover: 221 80% 8%;
-  --popover-foreground: 39 57% 88%;
+  --popover-foreground: 0 0% 98%;   /* #FAFAFA Warm Ivory */
   --popover-border: 221 50% 16%;
 
   /* Primary — Hermes Orange */
@@ -85,7 +85,7 @@
 
   /* Secondary — subtle navy lift */
   --secondary: 221 50% 12%;
-  --secondary-foreground: 39 57% 88%;
+  --secondary-foreground: 0 0% 98%;  /* #FAFAFA Warm Ivory */
 
   /* Muted */
   --muted: 221 50% 10%;
@@ -97,7 +97,7 @@
 
   /* Destructive */
   --destructive: 0 84% 60%;
-  --destructive-foreground: 39 57% 88%;
+  --destructive-foreground: 0 0% 98%; /* #FAFAFA Warm Ivory */
 
   /* Typography */
   --app-font-sans: "Satoshi", "Erode", system-ui, sans-serif;
